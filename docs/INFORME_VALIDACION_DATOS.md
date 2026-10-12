@@ -50,3 +50,11 @@ INE: API Tempus (servicios.ine.es). CGPJ: Excel "Series - Efecto de la crisis ..
 - **Validaciones:** la suma de las 19 comunidades coincide con el total nacional en los tres archivos y todos los años; público + privado = total en 2014–2025; las sumas mensuales del total coinciden con la tabla anual.
 - **Corrección:** el CSV de protegidas (tabla 1.6) publicado antes no incluía la Comunitat Valenciana (error de extracción). Corregido; el aviso "Completo salvo Canarias 2024" sigue vigente (ND en origen; el total nacional cuadra sin ese dato).
 - **Definición:** calificación definitiva = vivienda protegida de nueva construcción ya terminada y calificada, en planes estatales y autonómicos. No mide el parque público existente ni la vivienda libre.
+
+## Compraventas e hipotecas (añadido 2026-10-12)
+
+- **Compraventas**: INE, ETDP tabla 6155 (anual, 2007–2025; se usa 2008–2025). Series «General», «Vivienda nueva» y «Vivienda segunda mano» por comunidad.
+- **Hipotecas**: INE, Estadística de Hipotecas tabla 3223 (anual, base nueva), «Viviendas», número e importe (miles de €).
+- **Validaciones**: en todas las comunidades y años, nueva + segunda mano = total; la suma de las 19 comunidades = total nacional en compraventas e importes/número de hipotecas desde 2010. En 2008–2009 la diferencia nacional−suma de hipotecas corresponde a Ceuta y Melilla, sin dato en esos años.
+- **Importe medio** = importe ÷ número de hipotecas (cálculo propio, euros corrientes).
+- **Limitaciones**: son inscripciones registrales (fecha de inscripción, no de la operación); las hipotecas incluyen refinanciaciones y otros usos, por lo que no son equivalentes a compraventas con financiación.

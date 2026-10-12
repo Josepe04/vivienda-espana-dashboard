@@ -2,6 +2,15 @@
 
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y versionado semántico.
 
+## [0.5.0] - 2026-10-12
+
+### Añadido
+- Pestaña **Compraventas e hipotecas** (19 territorios, 2008–2025) con vistas de valor, variación anual y acumulado en un rango. Selector: compraventas de viviendas (total), vivienda nueva, vivienda de segunda mano, hipotecas sobre viviendas (número) e importe medio de la hipoteca.
+- Nuevas fuentes en `datos_raw/ine/`: ETDP (tabla 6155: compraventas, nuevas y de segunda mano) y Estadística de Hipotecas (tabla 3223: número e importe en miles de euros).
+
+### Notas
+- Importe medio = capital prestado ÷ número de hipotecas (cálculo propio). Ceuta y Melilla no tienen dato de hipotecas en 2008–2009.
+
 ## [0.4.0] - 2026-10-12
 
 ### Añadido

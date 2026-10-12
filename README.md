@@ -57,7 +57,7 @@ Los datos originales pertenecen a sus organismos: Instituto Nacional de Estadís
 
 ## Próximos pasos
 
-- Pestañas de viviendas libres terminadas, compraventas e hipotecas.
+- Pestaña de viviendas libres terminadas.
 - Lectura de los datos desde los CSV en lugar de incrustarlos.
 
 ## Atribución del mapa
