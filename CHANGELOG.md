@@ -2,6 +2,17 @@
 
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y versionado semántico.
 
+## [0.6.0] - 2026-10-12
+
+### Añadido
+- Pestaña **Accesibilidad del alquiler**: esfuerzo = precio mediano del alquiler (SERPAVI) × superficie (40/60/80/100 m²) × 12 ÷ renta neta media del hogar (INE, ECV, tabla 49146), 2011–2024. La renta del año X procede de la encuesta de X+1, que pregunta por los ingresos del año anterior.
+- Pestaña **Comparación**: gráfico de dispersión entre dos indicadores (valor en un año o cambio acumulado entre dos años), con recta de ajuste y correlación.
+- Pestaña **Ranking acumulado**: tabla ordenable con una fila por comunidad y una columna por indicador (cambio porcentual acumulado entre dos años).
+- Nueva fuente en `datos_raw/ine/`: renta neta media por hogar y comunidad (tabla 49146).
+
+### Cambiado
+- Al cambiar de pestaña, el año seleccionado se ajusta al rango disponible de esa serie.
+
 ## [0.5.0] - 2026-10-12
 
 ### Añadido

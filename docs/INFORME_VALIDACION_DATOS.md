@@ -58,3 +58,10 @@ INE: API Tempus (servicios.ine.es). CGPJ: Excel "Series - Efecto de la crisis ..
 - **Validaciones**: en todas las comunidades y años, nueva + segunda mano = total; la suma de las 19 comunidades = total nacional en compraventas e importes/número de hipotecas desde 2010. En 2008–2009 la diferencia nacional−suma de hipotecas corresponde a Ceuta y Melilla, sin dato en esos años.
 - **Importe medio** = importe ÷ número de hipotecas (cálculo propio, euros corrientes).
 - **Limitaciones**: son inscripciones registrales (fecha de inscripción, no de la operación); las hipotecas incluyen refinanciaciones y otros usos, por lo que no son equivalentes a compraventas con financiación.
+
+## Accesibilidad del alquiler, comparación y ranking (añadido 2026-10-12)
+
+- **Renta**: INE, ECV, tabla 49146, «Renta neta media por hogar» (19 territorios y total nacional, 2008–2025). Valores comprobados contra la consulta directa al INE (p. ej., Madrid 2025 = 47.375 €; total nacional 2025 = 38.994 €).
+- **Esfuerzo de alquiler** = precio mediano €/m² (SERPAVI) × m² × 12 ÷ renta neta media del hogar. Se alinea el año del alquiler X con la encuesta X+1 (los ingresos de la ECV 2025 se refieren a 2024). Resultado nacional 2024 con 60 m²: 15,9 %.
+- **Limitaciones**: mezcla una mediana de precios de contratos vigentes con una renta media de todos los hogares (el hogar medio no alquila un piso de 60 m²); es un indicador comparativo, no el esfuerzo de un hogar concreto. Navarra desde 2021 y País Vasco solo 2024 (limitación de SERPAVI).
+- **Comparación y ranking**: cálculos propios sobre los indicadores del panel; la correlación (r) es descriptiva, sin ponderar por tamaño de comunidad ni causalidad. Los cambios porcentuales con bases pequeñas (lanzamientos, vivienda protegida) son muy volátiles.
