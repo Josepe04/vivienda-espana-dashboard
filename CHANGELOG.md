@@ -2,6 +2,15 @@
 
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y versionado semántico.
 
+## [0.3.0] - 2026-10-12
+
+### Añadido
+- Pestaña **Vivienda pública**: viviendas protegidas con calificación definitiva por comunidad autónoma, con vistas de número, variación anual y acumulado en un rango. Selector de tipo: promotor público (2014–2025) o total de vivienda protegida (2008–2025).
+- Nuevas fuentes en `datos_raw/transportes_vivienda/`: vivienda protegida de promotor público (tabla 1.6.2.2) y de promotor privado (tabla 1.6.2.1), sumadas de mensual a anual.
+
+### Corregido
+- `viviendas_protegidas_calificaciones_definitivas_ccaa_anual_tabla1.6.csv` no incluía la **Comunitat Valenciana** por un error de extracción; ahora está completo y la suma de comunidades coincide con el total nacional en todos los años.
+
 ## [0.2.0] - 2026-10-12
 
 ### Añadido

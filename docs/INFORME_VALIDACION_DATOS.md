@@ -43,3 +43,10 @@ INE: API Tempus (servicios.ine.es). CGPJ: Excel "Series - Efecto de la crisis ..
 - **Cobertura:** 2011–2024 para 14 ciudades; **Bilbao solo 2024** (Bizkaia no tiene serie anterior en SERPAVI).
 - **Referencia en el panel:** media de las medianas de 14 ciudades (sin Bilbao) ponderada por nº de contratos; es un cálculo propio, no un dato oficial.
 - **Corrección:** SERPAVI procede de declaraciones de IRPF de arrendadores (Modelo 100) cruzadas con el Catastro, no de fianzas de contratos como se indicó en un primer momento en el panel. Solo recoge alquileres de vivienda habitual declarados.
+
+## Vivienda pública (añadido 2026-10-12)
+- **Fuente:** Ministerio de Transportes y Movilidad Sostenible, Boletín Online, vivienda protegida: tabla 1.6 (total, anual), 1.6.2.2 (promotor público, mensual) y 1.6.2.1 (promotor privado, mensual). Las mensuales se han sumado a anual (2014–2025; 2026 parcial descartado).
+- **Archivos:** `viviendas_protegidas_calificaciones_definitivas_ccaa_anual_tabla1.6.csv`, `viviendas_protegidas_promotor_publico_ccaa_anual_2014_2025_tabla1.6.2.2.csv`, `viviendas_protegidas_promotor_privado_ccaa_anual_2014_2025_tabla1.6.2.1.csv`.
+- **Validaciones:** la suma de las 19 comunidades coincide con el total nacional en los tres archivos y todos los años; público + privado = total en 2014–2025; las sumas mensuales del total coinciden con la tabla anual.
+- **Corrección:** el CSV de protegidas (tabla 1.6) publicado antes no incluía la Comunitat Valenciana (error de extracción). Corregido; el aviso "Completo salvo Canarias 2024" sigue vigente (ND en origen; el total nacional cuadra sin ese dato).
+- **Definición:** calificación definitiva = vivienda protegida de nueva construcción ya terminada y calificada, en planes estatales y autonómicos. No mide el parque público existente ni la vivienda libre.

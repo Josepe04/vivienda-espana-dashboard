@@ -46,6 +46,7 @@ h1,h2{margin:0}
 <div class="def" id="def"></div>
 <div id="viewsw" style="display:none;gap:8px;flex-wrap:wrap" role="group" aria-label="Ver en el mapa"></div>
 
+<div id="typesw" style="display:none;gap:8px;flex-wrap:wrap" role="group" aria-label="Tipo de vivienda protegida"></div>
 <section id="rangesw" class="card" style="display:none;flex-wrap:wrap;align-items:center;gap:14px 20px;padding:16px 20px">
 <label class="muted" style="font-size:14px">Desde <select id="ya" style="margin-left:8px"></select></label>
 <label class="muted" style="font-size:14px">hasta <select id="yb" style="margin-left:8px"></select></label>
@@ -99,6 +100,7 @@ h1,h2{margin:0}
 const D = {"names":["Andalucía","Aragón","Asturias","Illes Balears","Canarias","Cantabria","Castilla y León","Castilla-La Mancha","Cataluña","Comunitat Valenciana","Extremadura","Galicia","Comunidad de Madrid","Región de Murcia","Navarra","País Vasco","La Rioja","Ceuta","Melilla"],"tn":["Andalucía","Aragón","Asturias","Baleares","Canarias","Cantabria","C. y León","C-La Mancha","Cataluña","C. Valenciana","Extremadura","Galicia","Madrid","Murcia","Navarra","País Vasco","La Rioja","Ceuta","Melilla"],"pos":[[1,3,3],[4,1,1],[1,0,1],[5,2,1],[0,4,1],[2,0,1],[1,1,2],[3,2,1],[5,1,1],[4,2,1],[1,2,1],[0,0,1],[2,2,1],[4,3,1],[4,0,1],[3,0,1],[3,1,1],[1,4,1],[4,4,1]],"alqN":[11,11.3,11.4,12.1,12,12.9,12.4,13.1,13.8,14.3,14.8,15.4,14.7,15.2,15.1,15.4,17,16.7],"alq":[[8.1,7.1,7.4,9,7.5,9.3,7.8,6.4,8.3,7.8,8.6,10.8,10.3,10.9,11.3,12,12.3,11.9],[10.6,10.9,11.8,13.5,11.5,14.6,12.4,11.9,7.7,10.5,12.6,15.9,17.2,16.7,14.7,14.6,15.6,14.8],[10.8,10.5,9.7,9.7,6.2,10.9,8.5,9.9,10.7,13.3,13.6,15,14.6,13.2,12.1,13.4,14.1,13.1],[25.8,21.4,20.8,20.2,23.3,25.3,27.9,26.4,20.5,20.8,24.3,31.7,25,27.2,26.8,27.6,25.6,21.3],[17,17.2,14.3,12.5,13.6,12.7,12.8,15.6,14.3,15.7,16.7,17,17.5,20.2,21.6,21.6,19.7,16.9],[9.4,11.9,8.6,9.5,7.5,10.1,10.4,12.7,10.2,11,13.1,10.3,14.2,15.8,13.8,14,14,12.4],[8.2,7.5,8.7,8.4,9,9.8,9.6,7.6,9.2,10.9,10.4,14,14.7,11.9,11.9,10.8,11.8,11.2],[11.5,12,14.8,13.7,12.8,11.3,8,10.6,11.6,14.5,14.6,15.2,13.5,12.5,12,11,13,13.4],[13.4,15,15.5,17.3,16.4,16.5,18.1,18.7,20.2,21.6,22.5,23.1,21,20.9,21.3,20.7,23.6,23.2],[8.8,9,8.3,8.7,10,11.7,11.3,12.8,13.7,13.9,15.2,13.6,11.3,12.4,11.4,13.3,16,17.4],[6.7,6.2,5.6,7.9,11.8,7.5,5.5,5.8,6.3,7.2,5.7,8.1,7.6,7,8.9,11.4,12.5,13.5],[6.7,7.5,7.5,9.1,9.6,10.5,8.3,10.2,10.1,10.2,7.1,8.1,9.1,9.5,12,12.2,13.8,14.6],[14.4,16.1,15.9,14.8,16.9,17.9,18.3,20.5,22.3,21,20.9,19.7,18.5,20.3,19,19.7,22.7,22.6],[14.2,13.6,13.9,13.2,11.7,13.8,11,9.9,9.8,9.8,12,9.8,9.5,13.9,12.5,13.4,15.4,17.5],[9.9,9,11.1,12.4,12.6,11.5,10,10.7,9.8,9.2,10.3,10.2,11.4,12.9,14,12.1,13.8,8.8],[6.7,6.8,7.3,9.9,7.3,8.9,8.3,9.4,9.4,9.3,10,8.2,11,9.3,9.5,9.9,11.4,11.7],[10,9.5,10.7,14.4,14.9,9.2,8.5,10,11.4,12.1,11.4,10.8,14.8,13.7,10.9,10.5,12.8,12.5],[13.3,3.6,7.5,8.1,15.9,11.5,13.8,17,17,19.4,9.8,11.4,16.1,17.1,18,14.2,17.2,19.5],[13.3,18.3,15.8,22.3,8.3,20.8,15,19.7,18,17,22.8,28.6,23.2,27,24.2,15.2,17.6,18.4]],"ipvN":[81.9,76.4,74.9,69.4,59.9,53.5,53.7,55.6,58.2,61.8,65.9,69.3,70.7,73.3,78.8,81.9,88.7,100],"ipv":[[75.1,72.7,71.5,67.2,59.3,54.1,54.2,55.8,57.4,59.2,62.2,65.5,67,70.1,76.3,80.1,88.5,100],[99.6,90.9,85.9,78.9,67.5,58.9,57.6,58.1,59.2,60.9,63.8,67.7,69.4,72,76.6,79.6,87.7,100],[90.9,90.1,88.8,83.7,71.5,62.9,61.5,62.4,63.3,64,66.3,69,71.2,74.2,78.8,81.7,88.1,100],[70.5,64.7,63.4,60,51.7,48,48.2,51.3,54.4,58.7,63.1,66.9,69.6,73.7,80.5,83.8,89.3,100],[80.1,77,75.1,70.8,61.4,56.1,55.4,57.3,59.2,61.8,64.9,67.4,68.2,72.1,78.6,82.8,89.4,100],[88.1,82.1,77.2,70,60.1,54.7,55.6,57.2,58.7,61,64.6,66.6,67.4,71.1,78,82,89.4,100],[96.1,93.5,90.9,85.3,74,63.6,62,62.8,63.5,64.5,67.2,70.4,72.1,74.6,79.1,81.4,87.7,100],[104.5,101.4,100.2,93.8,82.9,70.4,68.5,70,70.6,71.1,72.8,75.4,76.4,78.2,82.8,84.2,89.7,100],[86.4,76.6,74.5,67.4,56.7,50.3,50.8,53.3,57,62.5,68,71.5,72.9,75.4,80.8,83.6,89.8,100],[86.7,82,79.5,73.6,63.6,57.9,58.3,59.7,61.3,63,65.5,68.3,69.8,72.8,78,81.2,88.6,100],[98.3,97.9,99.3,93.3,85.6,73,70,71.3,72.3,72.6,74,75.4,75.8,77.6,81.7,83,89,100],[87.5,86.4,84.8,80.5,70,62.2,61.5,62.3,63.5,64.6,67.1,69.8,71.4,74.6,79.6,82.4,88.6,100],[74.9,67.2,67.4,61.6,52.1,46.2,47.4,50.1,54.4,60.7,66.8,70.8,72,73.8,78.8,81.9,88.2,100],[85.4,84.5,83.6,79.4,70.5,59.7,59.9,60.8,61.7,62.4,64.6,67.5,69.6,73.2,78.8,80.6,87.5,100],[109.8,98.8,92.6,85.5,73.5,65.2,60.9,61.3,62.3,63.7,65.9,68.4,69.6,71.5,76.7,81.3,89.7,100],[94.7,84.9,83.5,77.1,65.5,60,59.7,60.3,61.8,65,68.6,71.5,73.1,74.7,79.4,82.2,89.1,100],[102.5,96.9,93.2,82.9,70.9,61.2,59.8,60.1,61.3,62.6,65.6,69.2,70.5,73,78.2,80.4,87.8,100],[68.3,65.3,62.8,57.4,50.3,47.1,47.2,49.7,52.2,55.7,60.5,65.1,68,70.5,76.6,80.8,88.2,100],[68.5,69.9,70.3,63.7,56.2,49.1,49.3,51.1,53.8,56.6,61,64.2,67.1,71.4,77.3,81.5,88,100]],"lanN":[67189,68091,67359,63037,60754,59671,54006,29406,41359,38266,26659,27564,24540],"lan":[[9266,10344,10694,9998,10437,9795,8806,4517,6615,6717,4449,4027,3782],[1787,1736,1749,1723,1789,1565,1234,791,873,918,642,638,631],[1178,1241,1228,1144,1085,1091,1000,716,743,752,485,704,603],[2446,2518,2347,2291,2129,2001,1834,1109,1351,1209,880,880,851],[4331,4298,4391,3690,3524,3808,3333,1779,2763,2445,1782,1732,1426],[716,625,799,721,705,576,564,461,559,448,151,257,191],[2768,2798,2719,2720,2716,2504,2239,1577,1629,1596,1027,1122,875],[2762,2299,2664,2364,2420,2401,1745,980,1508,1264,748,857,740],[16008,15606,15557,14069,13308,13941,12446,5737,9398,8574,7148,7381,6814],[9776,10471,10037,9635,8207,8083,7390,4501,6182,5594,3869,3610,2992],[656,770,721,748,636,697,612,339,448,415,280,269,261],[2404,2519,2432,2384,2493,1709,2271,1398,1667,1559,1171,1191,1046],[8753,7966,7194,6674,6476,6435,5936,2872,4039,3679,2367,2756,2267],[2391,2840,2750,3063,2789,3178,2934,1504,2239,1857,779,1203,780],[390,384,442,416,415,377,329,220,247,230,134,156,167],[1151,1086,1147,960,1196,1191,1043,669,863,771,593,608,974],[406,590,488,437,429,319,290,236,235,238,154,173,140]]};
 Object.assign(D, {"rentN":[6.61,6.47,6.19,6.09,6.09,6.22,6.37,6.63,7.15,7.32,7.51,7.82,8.16,8.63],"rent":[[5.47,5.35,5.11,5.06,5.03,5.16,5.28,5.47,5.92,6.06,6.3,6.6,6.95,7.35],[5.84,5.63,5.35,5.22,5.19,5.25,5.33,5.49,5.87,6.02,6.22,6.47,6.77,7.1],[5.42,5.42,5.25,5.21,5.16,5.26,5.33,5.43,5.71,5.81,5.95,6.13,6.36,6.63],[6.06,6.0,5.9,5.94,6.05,6.25,6.54,7.03,7.72,7.84,8.13,8.6,9.09,9.62],[5.56,5.45,5.32,5.3,5.32,5.42,5.57,5.8,6.3,6.45,6.67,6.97,7.34,7.75],[5.9,5.8,5.56,5.46,5.38,5.48,5.56,5.67,6.0,6.13,6.32,6.54,6.85,7.22],[4.69,4.66,4.5,4.48,4.46,4.55,4.63,4.74,5.01,5.13,5.27,5.47,5.69,5.97],[4.86,4.65,4.36,4.22,4.13,4.21,4.26,4.38,4.71,4.85,5.01,5.25,5.56,5.86],[7.51,7.27,6.94,6.85,6.88,7.04,7.25,7.58,8.22,8.45,8.69,9.04,9.44,9.84],[4.44,4.3,4.1,4.02,4.02,4.12,4.22,4.39,4.79,4.96,5.19,5.5,5.87,6.32],[3.96,3.94,3.84,3.77,3.72,3.8,3.85,3.91,4.14,4.24,4.35,4.52,4.72,4.99],[4.46,4.47,4.37,4.34,4.32,4.38,4.44,4.52,4.78,4.9,5.06,5.24,5.47,5.77],[9.55,9.26,8.72,8.49,8.51,8.69,8.9,9.29,10.16,10.42,10.66,11.09,11.54,12.12],[4.19,4.08,3.9,3.81,3.8,3.85,3.92,4.05,4.34,4.44,4.62,4.84,5.08,5.38],[null,null,null,null,null,null,null,null,null,null,5.85,6.18,6.59,6.86],[null,null,null,null,null,null,null,null,null,null,null,null,null,10.09],[4.9,4.72,4.43,4.32,4.31,4.39,4.46,4.55,4.86,5.0,5.16,5.38,5.63,5.91],[7.69,7.75,7.59,7.63,7.59,7.78,7.69,7.95,8.33,8.46,8.75,8.79,9.2,9.45],[6.84,6.92,6.96,6.95,7.04,7.03,7.43,7.55,7.89,8.11,8.34,8.6,8.75,9.1]],"rentM":[[425.58,416.67,400.0,400.0,400.0,400.0,400.0,420.0,450.0,458.41,483.0,500.0,525.0,550.0],[422.08,402.93,395.0,377.67,375.0,375.56,381.02,400.0,415.88,430.0,450.0,456.42,483.93,500.0],[400.0,400.0,383.14,380.0,375.0,380.0,385.0,397.97,400.0,410.0,425.0,440.0,450.0,467.67],[500.0,491.67,476.67,480.0,500.0,500.0,506.94,550.0,600.0,605.0,644.12,670.83,700.0,750.0],[400.0,400.0,390.0,385.0,390.0,400.0,400.0,410.0,450.0,450.67,475.0,500.0,508.33,550.0],[442.38,430.01,405.56,400.0,400.0,400.0,400.0,410.17,447.72,450.0,452.96,479.86,500.0,520.0],[390.0,381.25,369.0,360.63,360.0,370.0,375.0,381.67,400.0,401.1,420.0,435.0,450.0,470.31],[400.0,393.01,360.0,350.0,350.0,350.0,350.0,350.0,388.03,400.0,400.0,425.0,450.0,471.33],[547.95,525.0,500.0,500.0,500.0,500.0,506.94,543.0,587.5,600.0,613.5,647.95,666.92,700.0],[390.0,372.0,350.0,350.0,350.0,350.0,356.25,375.0,400.0,420.0,447.08,456.25,500.0,525.78],[350.0,350.0,337.5,330.0,325.0,333.33,338.33,349.04,356.58,364.33,375.65,395.0,400.0,425.0],[354.86,352.0,350.0,350.0,349.56,350.0,350.0,350.0,375.0,380.0,400.0,400.0,422.72,450.0],[650.0,622.96,600.0,575.0,570.0,587.5,600.0,612.5,677.53,700.0,700.0,737.5,759.27,800.0],[366.67,350.0,345.83,330.0,330.0,340.0,350.0,350.0,375.0,390.0,400.0,404.08,439.35,450.0],[null,null,null,null,null,null,null,null,null,null,500.0,545.0,573.46,598.36],[null,null,null,null,null,null,null,null,null,null,null,null,null,729.08],[400.0,391.67,366.67,350.0,350.0,358.82,367.68,375.0,400.0,403.31,422.97,450.0,452.98,482.82],[566.18,583.33,561.87,558.09,566.96,590.0,587.5,600.0,600.0,623.05,644.7,650.0,650.0,675.0],[490.0,500.0,500.0,500.0,500.0,500.0,520.0,530.0,550.0,553.59,564.62,587.59,600.0,600.0]],"rentMN":[490.0,476.0,458.0,451.0,450.0,456.0,462.0,480.0,518.0,530.0,544.0,567.0,590.0,624.0]});
 Object.assign(D, {"cnames":["Madrid","Barcelona","València","Zaragoza","Sevilla","Málaga","Murcia","Palma","Las Palmas de Gran Canaria","Alicante","Bilbao","Córdoba","Valladolid","Vigo","L'Hospitalet de Llobregat"],"ctn":["Madrid","Barcelona","València","Zaragoza","Sevilla","Málaga","Murcia","Palma","Las Palmas","Alicante","Bilbao","Córdoba","Valladolid","Vigo","L'Hospitalet"],"cpop":[3506730,1731649,840792,693091,689423,599063,479405,434786,381868,366221,351124,323262,302614,294489,289510],"cp":[[10.84,10.58,10,9.8,9.85,10.03,10.36,10.83,11.86,12.12,12.31,12.77,13.3,13.97],[10.14,9.89,9.47,9.33,9.42,9.68,10.12,10.78,11.76,12,12.12,12.57,13.14,13.68],[5.15,5,4.74,4.64,4.68,4.81,4.96,5.25,5.85,6.14,6.5,6.97,7.52,8.18],[6.4,6.18,5.85,5.68,5.64,5.7,5.79,5.97,6.37,6.55,6.76,7.04,7.36,7.72],[7.01,6.85,6.49,6.43,6.37,6.52,6.67,6.92,7.56,7.75,7.99,8.33,8.72,9.17],[6.25,6.03,5.8,5.76,5.78,5.95,6.16,6.52,7.27,7.5,7.81,8.32,8.86,9.55],[4.94,4.75,4.54,4.44,4.42,4.48,4.6,4.74,5.12,5.26,5.49,5.79,6.13,6.52],[6.25,6.12,5.97,5.96,6.09,6.28,6.58,7.12,7.9,8.05,8.33,8.78,9.26,9.84],[5.8,5.78,5.65,5.66,5.71,5.83,5.95,6.13,6.61,6.83,7.05,7.32,7.69,8.1],[4.84,4.62,4.44,4.44,4.46,4.65,4.77,4.92,5.41,5.63,5.84,6.17,6.56,7.11],[null,null,null,null,null,null,null,null,null,null,null,null,null,11.51],[5.73,5.7,5.48,5.41,5.38,5.49,5.57,5.76,6.17,6.26,6.42,6.6,6.85,7.14],[5.32,5.26,5.08,5.01,4.97,5.07,5.16,5.3,5.67,5.81,5.96,6.19,6.45,6.76],[5.63,5.64,5.52,5.45,5.44,5.57,5.71,5.86,6.28,6.48,6.69,7,7.3,7.61],[10.15,9.75,9.09,8.79,8.82,9.03,9.42,10,10.91,11.25,11.57,12.01,12.5,13]],"cr":[[700,671,639,613,615,635,650,680,750,754,765,800,825,869],[678,660,633,623,630,650,675,715,783,800,800,830,867,900],[447,425,400,400,400,400,417,450,500,513,550,590,625,681],[451,443,410,400,400,400,400,415,450,454,475,500,510,550],[521,504,497,480,478,499,500,508,560,575,596,600,641,668],[500,473,450,450,450,450,470,500,550,575,600,625,666,718],[400,400,370,359,358,367,380,400,418,438,450,475,500,525],[518,500,500,500,500,503,550,588,648,650,675,700,750,800],[428,430,420,420,426,440,450,450,500,500,513,548,556,600],[417,400,400,400,400,400,401,425,464,495,500,529,562,608],[null,null,null,null,null,null,null,null,null,null,null,null,null,800],[450,450,425,407,402,415,425,440,463,474,487,500,504,540],[433,425,408,400,400,401,412,425,450,458,474,493,500,531],[424,420,404,400,400,400,414,425,450,457,475,500,510,549],[583,550,515,500,500,500,525,555,600,631,650,670,700,726]],"cpN":[8.63,8.45,8.06,7.92,7.96,8.13,8.41,8.84,9.63,9.85,10.04,10.45,10.92,11.48],"crN":[593,575,550,536,538,551,568,596,652,661,674,704,731,772]});
+Object.assign(D, {"vpTN":[68587,67904,58311,58308,53332,17059,15046,7931,7118,4938,5191,7248,9973,10637,9610,8847,14371,12858],"vpT":[[9305,9670,8603,8798,9190,3585,2055,665,727,13,86,633,935,1070,496,673,1574,2265],[4956,3430,1796,981,3541,964,490,108,386,234,55,93,33,152,233,222,211,406],[1610,1161,1943,2620,1201,400,84,51,0,48,35,129,42,20,170,310,87,121],[239,339,391,288,69,168,32,0,14,0,0,18,9,0,230,234,236,87],[543,72,384,636,892,192,184,64,88,56,0,60,0,0,208,0,null,0],[707,1607,741,836,436,260,101,121,102,20,0,0,32,96,0,0,0,0],[3436,2364,669,2380,1965,628,661,271,4,90,0,0,276,0,0,176,494,240],[4462,3720,5233,3329,2600,683,331,117,64,165,198,313,269,295,283,653,159,222],[6315,6366,6786,5759,5147,892,1059,617,634,1358,633,945,1223,1529,1723,2243,1893,3517],[4879,3662,3994,3764,2755,575,309,29,126,250,110,191,306,485,636,274,742,407],[2650,3666,2261,1829,1859,632,257,234,171,216,171,132,183,320,254,278,48,164],[2758,1778,2261,1717,660,439,42,2,139,12,8,4,313,155,103,18,5,166],[16623,20125,15064,16178,16602,4063,5864,3282,2695,1815,2418,3059,5167,5014,3466,2291,6689,3802],[1306,1224,950,538,599,67,32,20,23,42,30,0,44,37,0,83,0,0],[2983,2979,1574,2614,1398,1446,1163,425,349,192,588,327,558,360,243,446,277,277],[5000,4672,4991,5523,3835,1772,2239,1925,1596,385,859,1344,562,1099,1565,922,1956,1184],[724,964,519,251,410,269,142,0,0,0,0,0,0,5,0,24,0,0],[0,105,151,225,170,0,1,0,0,0,0,0,0,0,0,0,0,0],[91,0,0,42,3,24,0,0,0,42,0,0,21,0,0,0,0,0]],"vpPN":[3302,1797,1542,1036,615,1684,975,2282,2028,2276,3749,4046],"vpP":[[791,72,403,12,4,298,18,90,118,197,267,800],[0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,52,0,0,0,0,0,0],[0,0,14,0,0,18,9,0,147,234,236,78],[8,48,72,56,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,35,0,0,54,322,108],[27,0,1,0,20,0,0,0,8,0,0,0],[345,312,77,646,60,259,281,604,480,946,815,1778],[0,0,0,0,0,0,0,0,4,0,22,0],[136,68,26,42,2,28,2,7,0,80,2,0],[39,1,134,8,5,0,5,66,12,0,0,62],[672,498,660,154,139,352,424,916,549,244,1014,521],[0,0,0,0,0,0,0,0,0,0,0,0],[0,32,0,0,120,42,96,76,22,111,116,149],[1284,766,155,76,265,635,84,523,688,410,955,550],[0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,42,0,0,21,0,0,0,0,0]]});
 const CFG = {
   alq:{tab:'Hogares en alquiler',sub:'% de hogares · INE ECV',label:'Hogares en alquiler a precio de mercado',unitName:'% de hogares',unit:'%',dec:1,fam:'#2DD4BF',grad:'linear-gradient(90deg,#10302F,#1B7F78,#5EEAD4)',lo:'5 %',mid:'15 %',hi:'25 %',d0:0,d1:30,from:2008,
     def:'<b>Qué mide:</b> porcentaje de hogares de cada comunidad que vive en una vivienda alquilada a precio de mercado. Es un valor de <b>nivel</b> (no una variación). En la ficha, el cambio respecto al año anterior se muestra en <b>puntos porcentuales (pp)</b>.',
@@ -118,8 +120,20 @@ CFG.ciu={tab:'Precio del alquiler ciudades',sub:'€/m² al mes · 15 mayores ci
   def:'<b>Qué mide:</b> precio mediano del alquiler de pisos en <b>€ por m² y mes</b> en los <b>15 municipios más poblados</b> (padrón INE 1-ene-2025), a partir de las declaraciones de IRPF de arrendadores cruzadas con el Catastro (SERPAVI, Ministerio de Vivienda). Usa el selector para ver el <b>precio</b> o su <b>variación anual</b>. La ficha muestra también la renta mensual mediana. Son <b>medianas</b>; la referencia es la media de las medianas de 14 ciudades ponderada por número de contratos (sin Bilbao, que solo tiene 2024).',
   src:'Ministerio de Vivienda y Agenda Urbana, SERPAVI (nivel municipal, viviendas colectivas) · población: INE, padrón 2025',cov:'2011–2024 · Bilbao solo 2024 (Bizkaia no aporta serie anterior)',warn:'Solo alquileres de vivienda habitual declarados en el IRPF. Las ciudades con pocos contratos pueden tener series más irregulares.'};
 CFG.ciuv=Object.assign({},CFG.ciu,{label:'Variación anual del precio del alquiler en las 15 mayores ciudades',unitName:'variación % anual',unit:'%',dec:1,grad:'linear-gradient(90deg,#5B8DEF,#26303C,#FDBA74)',lo:'−8 %',mid:'0 %',hi:'+12 %',d0:-8,d1:12,from:2012});
+CFG.pub={tab:'Vivienda pública',sub:'viviendas protegidas · MITMA',label:'Viviendas protegidas de promotor público',unitName:'viviendas',unit:'',dec:0,fam:'#A3E635',grad:'linear-gradient(90deg,#18230A,#4D7C0F,#BEF264)',lo:'0',mid:'500',hi:'2.000',d0:0,d1:2000,from:2014,to:2025,
+  def:'<b>Qué mide:</b> número de <b>viviendas protegidas con calificación definitiva</b> (vivienda protegida de nueva construcción ya terminada y calificada) en planes estatales y autonómicos. Por defecto se muestran las de <b>promotor público</b> (administraciones y empresas públicas); con el selector “Tipo” puedes ver el <b>total de vivienda protegida</b> (público + privado). En la vista de variación, un año con base 0 no tiene % calculable, y con cifras pequeñas los porcentajes oscilan mucho.',
+  src:'Ministerio de Transportes y Movilidad Sostenible, Boletín Online, tablas 1.6 y 1.6.2.2 (vivienda protegida)',cov:'Promotor público 2014–2025 · total protegida 2008–2025 · 19 territorios',warn:'La calificación definitiva se usa como aproximación de vivienda protegida terminada. No incluye el parque público ya existente ni vivienda libre. Canarias 2024: dato no proporcionado en el total.'};
+CFG.pubv=Object.assign({},CFG.pub,{label:'Variación anual de viviendas protegidas de promotor público',unitName:'variación % anual',unit:'%',dec:1,grad:'linear-gradient(90deg,#5B8DEF,#26303C,#BEF264)',lo:'−100 %',mid:'0 %',hi:'+100 % o más',d0:-100,d1:100,from:2015});
+function cfgFor(ek){
+  const c=CFG[ek];if(ek!=='pub'&&ek!=='pubv')return c;
+  const tot=S.ptype==='tot';
+  const o=Object.assign({},c);
+  if(tot){o.label=ek==='pub'?'Viviendas protegidas terminadas (público + privado)':'Variación anual de viviendas protegidas (público + privado)';o.from=ek==='pub'?2008:2009;if(ek==='pub'){o.d1=20000;o.mid='5.000';o.hi='20.000'}o.cov='2008–2025 · 19 territorios'}
+  return o;
+}
 const isRen=k=>k==='ren'||k==='ciu';
-const S = {ind:'alq',year:2025,sel:12,selC:0,playing:false,view:'precio',a:2019,b:2024};
+function pser(idx){const tot=S.ptype==='tot';const src=tot?(idx<0?D.vpTN:D.vpT[idx]):(idx<0?D.vpPN:D.vpP[idx]);const off=tot?0:6;return Array.from({length:18},(_,i)=>i>=off?(src[i-off]==null?null:src[i-off]):null)}
+const S = {ind:'alq',year:2025,sel:12,selC:0,playing:false,view:'precio',a:2019,b:2024,ptype:'pub'};
 let timer=null;
 const $ = id => document.getElementById(id);
 const hex = h => [1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
@@ -133,6 +147,8 @@ function colorOf(ind,v){
   if(v==null)return '#161D26';
   if(ind==='alq')return ramp(['#10302F','#1B7F78','#5EEAD4'],(v-5)/20);
   if(ind==='ipv')return v<0?mix('#26303C','#5B8DEF',Math.min(1,-v/16)):mix('#26303C','#FBBF24',Math.min(1,v/14));
+  if(ind==='pub')return ramp(['#18230A','#4D7C0F','#BEF264'],Math.sqrt(v/(S.ptype==='tot'?20000:2000)));
+  if(ind==='pubv')return v<0?mix('#26303C','#5B8DEF',Math.min(1,-v/100)):mix('#26303C','#BEF264',Math.min(1,v/100));
   if(ind==='ciu')return ramp(['#2B1A0E','#B45309','#FDBA74'],(v-3.5)/10);
   if(ind==='ciuv')return v<0?mix('#26303C','#5B8DEF',Math.min(1,-v/8)):mix('#26303C','#FDBA74',Math.min(1,v/10));
   if(ind==='ren')return ramp(['#1E1B3A','#5B4BC4','#C4B5FD'],(v-3.5)/9);
@@ -140,6 +156,7 @@ function colorOf(ind,v){
   return ramp(['#2A1520','#9B2C4A','#FB7185'],Math.sqrt(v/16100));
 }
 function ser(ind,idx){
+  if(ind==='pub'||ind==='pubv'){const raw=pser(idx);if(ind==='pub')return raw;return raw.map((v,i)=>(i>0&&v!=null&&raw[i-1]!=null&&raw[i-1]>0)?Math.round((v/raw[i-1]-1)*1000)/10:null)}
   if(ind==='ren'||ind==='renv'||ind==='ciu'||ind==='ciuv'){
     const c4=ind[0]==='c';
     const a=idx<0?(c4?D.cpN:D.rentN):(c4?D.cp[idx]:D.rent[idx]);
@@ -160,6 +177,7 @@ function spark(arr){
   return d;
 }
 function delta(ind,now,prev,year){
+  if(ind==='pub'){if(now==null||prev==null)return 'Sin dato del año anterior';return prev>0?sgn((now/prev-1)*100,1)+' % ('+sgn(now-prev,0)+' viviendas) vs. '+(year-1):sgn(now-prev,0)+' viviendas vs. '+(year-1)+' (base 0)'}
   if(now==null||prev==null)return 'Sin dato del año anterior';
   if(ind==='lan')return sgn((now/prev-1)*100,1)+' % vs. '+(year-1);
   if(ind==='ren'||ind==='ciu')return sgn((now/prev-1)*100,1)+' % ('+sgn(now-prev,2)+' €/m²) vs. '+(year-1);
@@ -174,26 +192,27 @@ function togglePlay(){
 }
 function lev(k,idx,y){
   let a;
+  if(k==='pub'){const v=pser(idx)[y-2008];return v==null?null:v}
   if(k==='ipv'){a=idx<0?D.ipvN:D.ipv[idx];const v=a[y-2008];return v==null?null:v}
   a=k==='ciu'?(idx<0?D.cpN:D.cp[idx]):(idx<0?D.rentN:D.rent[idx]);
   const v=a[y-2011];return v==null?null:v;
 }
 function renderAcum(x){
   const {c,isC,sel,NM,TN,POS}=x,k=S.ind;
-  const lo=k==='ipv'?2008:2011,hi=k==='ipv'?2025:2024;
+  const lo=k==='ipv'?2008:(k==='pub'?(S.ptype==='tot'?2008:2014):2011),hi=(k==='ipv'||k==='pub')?2025:2024;
   S.b=Math.min(hi,Math.max(S.b,lo+1));S.a=Math.max(lo,Math.min(S.a,S.b-1));
   const A=S.a,B=S.b,n=B-A;
   const yrs=[];for(let y=lo;y<=hi;y++)yrs.push(y);
   $('ya').innerHTML=yrs.slice(0,-1).map(y=>`<option value="${y}"${y===A?' selected':''}>${y}</option>`).join('');
   $('yb').innerHTML=yrs.slice(1).map(y=>`<option value="${y}"${y===B?' selected':''}>${y}</option>`).join('');
-  const hiCol={ren:'#C4B5FD',ciu:'#FDBA74',ipv:'#FBBF24'}[k];
-  const what=k==='ipv'?'precio de la vivienda':'precio del alquiler';
-  const lvf=v=>v==null?'—':(k==='ipv'?num(v,1)+' (índice)':num(v,2)+' €/m²');
-  const cum=(idx,y)=>{const a=lev(k,idx,A),b=lev(k,idx,y);return(a==null||b==null)?null:Math.round((b/a-1)*1000)/10};
+  const hiCol={ren:'#C4B5FD',ciu:'#FDBA74',ipv:'#FBBF24',pub:'#BEF264'}[k];
+  const what=k==='ipv'?'precio de la vivienda':(k==='pub'?'número de viviendas protegidas':'precio del alquiler');
+  const lvf=v=>v==null?'—':(k==='pub'?num(v,0)+' viviendas':k==='ipv'?num(v,1)+' (índice)':num(v,2)+' €/m²');
+  const cum=(idx,y)=>{const a=lev(k,idx,A),b=lev(k,idx,y);return(a==null||b==null||a<=0)?null:Math.round((b/a-1)*1000)/10};
   const fp=v=>v==null?'—':sgn(v,1)+' %';
   const vals=NM.map((_,i)=>cum(i,B));
   const pres=vals.filter(v=>v!=null);
-  const m=Math.max(5,Math.ceil(Math.max(...pres.map(Math.abs))/5)*5);
+  const rawM=Math.max(5,Math.ceil(Math.max(0,...pres.map(Math.abs))/5)*5);const capped=k==='pub'&&rawM>100;const m=capped?100:rawM;
   const col=v=>v==null?'#161D26':(v<0?mix('#26303C','#5B8DEF',Math.min(1,-v/m)):mix('#26303C',hiCol,Math.min(1,v/m)));
   $('rangeTxt').textContent='Cambio del '+what+' entre '+A+' y '+B+' ('+n+(n===1?' año':' años')+')';
   $('mapTitle').innerHTML='Variación acumulada · '+A+' → '+B+'<span class="unitchip">% acumulado</span>';
@@ -204,23 +223,23 @@ function renderAcum(x){
     const ink=v==null?'#8FA1B3':(lum(bg)>.36?'#0A0E13':'#F3F7FA');
     return `<button class="tile" data-sel="${i}" aria-pressed="${i===sel}" aria-label="${esc(nm)}: ${fp(v)}" style="grid-column:${p[0]+1} / span ${p[2]};grid-row:${p[1]+1};background:${bg};color:${ink};outline:${i===sel?'3px solid #F3F7FA':'3px solid transparent'}"><span style="font-size:12px;font-weight:600;line-height:1.2">${esc(TN[i])}</span><span class="disp" style="font-weight:700;font-size:21px;font-variant-numeric:tabular-nums">${fp(v)}</span></button>`}).join('');
   $('legbar').style.background='linear-gradient(90deg,#5B8DEF,#26303C,'+hiCol+')';
-  $('legend').innerHTML=`<span>−${m} %</span><span>0 %</span><span>+${m} %</span>`;
+  $('legend').innerHTML=`<span>−${m} %</span><span>0 %</span><span>+${m} %${capped?' o más':''}</span>`;
   const entries=vals.map((v,i)=>({v,i})).filter(e=>e.v!=null).sort((a,b)=>b.v-a.v);
   const rank=entries.findIndex(e=>e.i===sel)+1;
-  const tae=(idx)=>{const a=lev(k,idx,A),b=lev(k,idx,B);return(a==null||b==null)?null:(Math.pow(b/a,1/n)-1)*100};
+  const tae=(idx)=>{const a=lev(k,idx,A),b=lev(k,idx,B);return(a==null||b==null||a<=0)?null:(Math.pow(b/a,1/n)-1)*100};
   const series=idx=>{const o=[];for(let y=A;y<=B;y++)o.push(cum(idx,y));return o};
   const natS=series(-1),selS=series(sel);
   const mk=(label,idx,colr,sub)=>{
     const a=lev(k,idx,A),b=lev(k,idx,B),t=tae(idx);
-    return {l:label,v:fp(cum(idx,B)),d:a==null||b==null?'Sin dato en el rango':lvf(a)+' ('+A+') → '+lvf(b)+' ('+B+')',sp:spark(series(idx)),col:colr,sub:sub+(t==null?'':' · '+sgn(t,1)+' % al año de media')};
+    return {l:label,v:fp(cum(idx,B)),d:a==null||b==null?'Sin dato en el rango':lvf(a)+' ('+A+') → '+lvf(b)+' ('+B+')',sp:spark(series(idx)),col:colr,sub:sub+(k==='pub'?(()=>{let s=0;for(let y=A;y<=B;y++){const v=lev(k,idx,y);if(v!=null)s+=v}return ' · '+num(s,0)+' viviendas en total ('+A+'–'+B+')'})():(t==null?'':' · '+sgn(t,1)+' % al año de media'))};
   };
-  const kp=[mk(isC?'Media 14 ciudades':(k==='ipv'?'Total nacional':'Total nacional'),-1,'#E8EEF4',k==='ipv'?'Índice nacional':(isC?'Media ponderada de 14 ciudades':'Media ponderada de medianas')),
+  const kp=[mk(isC?'Media 14 ciudades':(k==='ipv'?'Total nacional':'Total nacional'),-1,'#E8EEF4',k==='ipv'?'Índice nacional':k==='pub'?'Suma de las comunidades':(isC?'Media ponderada de 14 ciudades':'Media ponderada de medianas')),
             mk(NM[sel],sel,c.fam,vals[sel]==null?'Sin dato en el rango':'N.º '+rank+' de '+entries.length+(isC?' ciudades':' territorios'))];
   $('kpis').innerHTML=kp.map(q=>`<article class="card kpi" style="padding:18px"><span class="muted" style="font-size:13px">${esc(q.l)}</span><span class="big disp">${q.v}</span><span style="font-size:13px;color:#C5D0DB">${q.d}</span><svg viewBox="0 0 160 44" preserveAspectRatio="none" style="width:100%;height:44px;display:block"><path d="${q.sp}" fill="none" stroke="${q.col}" stroke-width="2" vector-effect="non-scaling-stroke"/></svg><span class="muted" style="font-size:12px">${q.sub}</span></article>`).join('');
   $('rankTitle').textContent='Ranking · variación acumulada '+A+' → '+B;
   const rng=2*m;
   $('bars').innerHTML=entries.map(e=>{
-    const pos=(e.v+m)/rng,zero=.5;
+    const pos=Math.max(0,Math.min(1,(e.v+m)/rng)),zero=.5;
     return `<button class="bar" data-sel="${e.i}" aria-label="${esc(NM[e.i])}: ${fp(e.v)}" style="background:${e.i===sel?'#1E2833':'transparent'}"><span style="flex:0 0 118px;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(NM[e.i])}</span><span class="track"><span class="fill" style="left:${(Math.min(zero,pos)*100).toFixed(1)}%;width:${(Math.abs(pos-zero)*100).toFixed(1)}%;background:${col(e.v)}"></span></span><span style="flex:0 0 74px;text-align:right;font-size:13px;font-variant-numeric:tabular-nums">${fp(e.v)}</span></button>`}).join('');
   // chart A..B
   const W=860,H=300,pl=48,pr=16,pt=28,pb=30,xOf=y=>pl+(y-A)/n*(W-pl-pr);
@@ -242,27 +261,29 @@ function renderAcum(x){
   const natName=isC?'Media 14 ciudades (ponderada)':(k==='ren'?'Media ponderada nacional':'Total nacional');
   $('chartTitle').textContent='Acumulado desde '+A+' · '+NM[sel];
   $('chartLeg').innerHTML=`<span style="display:flex;align-items:center;gap:8px"><span style="width:22px;border-top:2px dashed #8FA1B3"></span>${natName}</span><span style="display:flex;align-items:center;gap:8px"><span style="width:22px;height:3px;border-radius:2px;background:${c.fam}"></span>${esc(NM[sel])}</span>`;
-  $('chartNote').textContent='Cada punto es el cambio porcentual respecto a '+A+' ('+what+'). Se calcula como valor del año / valor de '+A+' − 1; no es la suma de las variaciones anuales.'+(isC?' Bilbao solo tiene dato en 2024.':'')+(k==='ren'&&!isC?' Navarra y País Vasco tienen serie corta.':'');
+  $('chartNote').textContent='Cada punto es el cambio porcentual respecto a '+A+' ('+what+'). Se calcula como valor del año / valor de '+A+' − 1; no es la suma de las variaciones anuales.'+(k==='pub'?' Si el año inicial es 0 no hay % calculable; barras y colores se limitan a +100 %.':'')+(isC?' Bilbao solo tiene dato en 2024.':'')+(k==='ren'&&!isC?' Navarra y País Vasco tienen serie corta.':'');
 }
 function render(){
   const isC=S.ind==='ciu';const sel=isC?S.selC:S.sel;
   const NM=isC?D.cnames:D.names,TN=isC?D.ctn:D.tn,POS=isC?D.cnames.map((_,i)=>[i%5,Math.floor(i/5),1]):D.pos;
   const RM=isC?D.cr:D.rentM,RMN=isC?D.crN:D.rentMN;
-  const isAcum=S.view==='acum'&&(isRen(S.ind)||S.ind==='ipv');
-  const ek=(isRen(S.ind)&&S.view==='var')?S.ind+'v':S.ind;const c=CFG[ek],ind=ek,yi=S.year-2008;
+  const isAcum=S.view==='acum'&&(isRen(S.ind)||S.ind==='ipv'||S.ind==='pub');
+  const ek=((isRen(S.ind)||S.ind==='pub')&&S.view==='var')?S.ind+'v':S.ind;const c=cfgFor(ek),ind=ek,yi=S.year-2008;
   const app=$('app');app.style.setProperty('--fam',c.fam);
   const fv=v=>v==null?'—':num(v,c.dec)+(c.unit?' '+c.unit:'');
   const vals=NM.map((_,i)=>ser(ind,i)[yi]);
   const natS=ser(ind,-1),natV=natS[yi],natP=yi>0?natS[yi-1]:null;
   const selS=ser(ind,sel),selV=selS[yi],selP=yi>0?selS[yi-1]:null;
 
-  $('tabs').innerHTML=Object.keys(CFG).filter(k=>k!=='renv'&&k!=='ciuv').map(k=>{const t=CFG[k],on=k===S.ind;
+  $('tabs').innerHTML=Object.keys(CFG).filter(k=>k!=='renv'&&k!=='ciuv'&&k!=='pubv').map(k=>{const t=CFG[k],on=k===S.ind;
     return `<button class="tab" data-ind="${k}" aria-pressed="${on}" title="${esc(t.def.replace(/<[^>]+>/g,''))}" style="background:${on?t.fam:'#121821'};color:${on?'#0A0E13':'#E8EEF4'};border-color:${on?t.fam:'#2A3541'}"><span style="font-weight:600;font-size:15px">${t.tab}</span><small>${t.sub}</small></button>`}).join('');
   $('def').innerHTML=c.def;
-  $('viewsw').style.display=(isRen(S.ind)||S.ind==='ipv')?'flex':'none';
-  const vopts=S.ind==='ipv'?[['precio','Variación anual (%)'],['acum','Acumulado en un rango']]:[['precio','Precio (€/m² al mes)'],['var','Variación anual (%)'],['acum','Acumulado en un rango']];
+  $('viewsw').style.display=(isRen(S.ind)||S.ind==='ipv'||S.ind==='pub')?'flex':'none';
+  const vopts=S.ind==='pub'?[['precio','Número de viviendas'],['var','Variación anual (%)'],['acum','Acumulado en un rango']]:S.ind==='ipv'?[['precio','Variación anual (%)'],['acum','Acumulado en un rango']]:[['precio','Precio (€/m² al mes)'],['var','Variación anual (%)'],['acum','Acumulado en un rango']];
   const vact=k=>(S.ind==='ipv'&&k==='precio')?S.view!=='acum':S.view===k;
   $('viewsw').innerHTML=vopts.map(([k,l])=>`<button data-view="${k}" aria-pressed="${vact(k)}" style="padding:8px 14px;border-radius:999px;font-size:13px;font-weight:600;background:${vact(k)?c.fam:'#121821'};color:${vact(k)?'#0A0E13':'#E8EEF4'};border:1px solid ${vact(k)?c.fam:'#2A3541'}">${l}</button>`).join('');
+  $('typesw').style.display=S.ind==='pub'?'flex':'none';
+  $('typesw').innerHTML='<span class="muted" style="font-size:13px;align-self:center">Tipo:</span>'+[['pub','Promotor público (2014–2025)'],['tot','Total vivienda protegida (2008–2025)']].map(([k,l])=>`<button data-ptype="${k}" aria-pressed="${S.ptype===k}" style="padding:8px 14px;border-radius:999px;font-size:13px;font-weight:600;background:${S.ptype===k?'#E8EEF4':'#121821'};color:${S.ptype===k?'#0A0E13':'#E8EEF4'};border:1px solid ${S.ptype===k?'#E8EEF4':'#2A3541'}">${l}</button>`).join('');
   $('yearbar').style.display=isAcum?'none':'flex';
   $('rangesw').style.display=isAcum?'flex':'none';
   if(isAcum){stop();$('def').innerHTML=c.def+'<br><b>Acumulado:</b> elige un año de inicio y otro de fin y verás cuánto ha cambiado el precio entre ambos, en %. Es el cambio total del periodo, no la suma de las variaciones anuales.';renderAcum({c,isC,sel,NM,TN,POS});$('foot').innerHTML=`<span><b style="color:#C5D0DB;font-weight:600">Fuente:</b> ${c.src}</span><span><b style="color:#C5D0DB;font-weight:600">Cobertura:</b> ${c.cov}</span><span><b style="color:#C5D0DB;font-weight:600">Aviso:</b> ${c.warn}</span>`;return}
@@ -300,7 +321,7 @@ function render(){
   const natPlot=ind==='lan'?natS.map(v=>v==null?null:v/17):natS;
   const all=natPlot.concat(selS).filter(v=>v!=null);
   let mn=Math.min(...all),mx=Math.max(...all);
-  if(ind==='lan')mn=0;else if(ind==='ipv'||ind==='renv')mn=Math.min(mn,0);else mn=Math.max(0,Math.floor(mn-2));
+  if(ind==='lan'||ind==='pub')mn=0;else if(ind==='ipv'||ind==='renv'||ind==='ciuv'||ind==='pubv')mn=Math.min(mn,0);else mn=Math.max(0,Math.floor(mn-2));
   mx=mx+(mx-mn)*.08;
   const yOf=v=>pt+(1-(v-mn)/((mx-mn)||1))*(H-pt-pb);
   const pathOf=a=>{let d='',pen=false;a.forEach((v,i)=>{if(v==null){pen=false;return}d+=(pen?'L':'M')+xOf(2008+i).toFixed(1)+' '+yOf(v).toFixed(1)+' ';pen=true});return d};
@@ -318,11 +339,12 @@ function render(){
   const natName=ind==='lan'?'Media por CCAA':(isC?'Media 14 ciudades (ponderada)':(S.ind==='ren'?'Media ponderada nacional':'Total nacional'));
   $('chartTitle').textContent='Evolución · '+NM[sel]+' ('+c.unitName+')';
   $('chartLeg').innerHTML=`<span style="display:flex;align-items:center;gap:8px"><span style="width:22px;border-top:2px dashed #8FA1B3"></span>${natName}</span><span style="display:flex;align-items:center;gap:8px"><span style="width:22px;height:3px;border-radius:2px;background:${c.fam}"></span>${esc(NM[sel])}</span>`;
-  $('chartNote').textContent=ind==='lan'?'Sin datos del CGPJ antes de 2013.'+(sel>=17?' Ceuta y Melilla se cuentan dentro de Andalucía.':''):(ind==='ipv'?'Variación anual del índice de medias anuales; 2008 sin dato.':(isRen(S.ind)?'Serie SERPAVI 2011–2024; la variación empieza en 2012.'+(isC?' Bilbao solo tiene dato en 2024.':''):'Porcentaje de hogares en alquiler a precio de mercado.'));
+  $('chartNote').textContent=ind==='lan'?'Sin datos del CGPJ antes de 2013.'+(sel>=17?' Ceuta y Melilla se cuentan dentro de Andalucía.':''):(S.ind==='pub'?'Calificaciones definitivas de vivienda protegida. '+(S.ptype==='pub'?'Serie de promotor público desde 2014.':'Serie total desde 2008.')+(S.view==='var'?' Los años con base 0 no tienen % calculable.':''):ind==='ipv'?'Variación anual del índice de medias anuales; 2008 sin dato.':(isRen(S.ind)?'Serie SERPAVI 2011–2024; la variación empieza en 2012.'+(isC?' Bilbao solo tiene dato en 2024.':''):'Porcentaje de hogares en alquiler a precio de mercado.'));
   $('foot').innerHTML=`<span><b style="color:#C5D0DB;font-weight:600">Fuente:</b> ${c.src}</span><span><b style="color:#C5D0DB;font-weight:600">Cobertura:</b> ${c.cov}</span><span><b style="color:#C5D0DB;font-weight:600">Aviso:</b> ${c.warn}</span><span><b style="color:#C5D0DB;font-weight:600">Descarga:</b> 11–12 oct 2026</span>`;
 }
 document.addEventListener('click',e=>{
   const t=e.target.closest('[data-ind]');if(t){S.ind=t.dataset.ind;render();return}
+  const pt=e.target.closest('[data-ptype]');if(pt){S.ptype=pt.dataset.ptype;render();return}
   const vw=e.target.closest('[data-view]');if(vw){S.view=vw.dataset.view;render();return}
   const s=e.target.closest('[data-sel]');if(s){if(S.ind==='ciu')S.selC=+s.dataset.sel;else S.sel=+s.dataset.sel;render();return}
   if(e.target.closest('#play'))togglePlay();
