@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vivienda en España · Panel por CCAA</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0A0E13;color:#E8EEF4;font-family:'IBM Plex Sans',system-ui,sans-serif}
+button{font:inherit;cursor:pointer;border:0;color:inherit;padding:0}
+button:focus-visible,input:focus-visible{outline:2px solid #F3F7FA;outline-offset:2px}
+h1,h2{margin:0}
+.disp{font-family:'Bricolage Grotesque',system-ui,sans-serif}
+.wrap{max-width:1360px;margin:0 auto;padding:32px 24px 48px;display:flex;flex-direction:column;gap:20px}
+.card{background:#121821;border:1px solid #1F2933;border-radius:16px;padding:20px}
+.muted{color:#8FA1B3}
+.row{display:flex;flex-wrap:wrap;gap:20px;align-items:flex-start}
+.tab{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:12px 18px;min-height:56px;border-radius:14px;border:1px solid #2A3541;background:#121821;text-align:left}
+.tab small{font-size:12px;opacity:.8}
+.tiles{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-auto-rows:minmax(88px,auto);gap:6px}
+.tile{border-radius:10px;padding:10px;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;text-align:left;min-height:88px;outline-offset:-3px}
+.bar{display:flex;align-items:center;gap:10px;min-height:28px;padding:2px 8px;border-radius:8px;width:100%;text-align:left;background:transparent}
+.track{flex:1 1 auto;position:relative;height:12px;background:#1A222C;border-radius:6px}
+.fill{position:absolute;top:0;bottom:0;border-radius:6px}
+.kpi{flex:1 1 190px;min-width:0;display:flex;flex-direction:column;gap:8px}
+.big{font-weight:800;font-size:38px;line-height:1;font-variant-numeric:tabular-nums}
+.def{border-left:3px solid var(--fam);background:#121821;border-radius:0 12px 12px 0;padding:12px 16px;font-size:14px;line-height:1.5;color:#C5D0DB}
+.def b{color:#E8EEF4}
+.unitchip{display:inline-block;margin-left:8px;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:600;background:var(--fam);color:#0A0E13;vertical-align:middle}
+</style>
+</head>
+<body>
+<div class="wrap" id="app" style="--fam:#2DD4BF">
+
+<header style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end;justify-content:space-between">
+<div style="display:flex;flex-direction:column;gap:6px;min-width:260px">
+<span class="muted" style="font-size:13px;letter-spacing:.14em;text-transform:uppercase">INE · CGPJ · Ministerios</span>
+<h1 class="disp" style="font-weight:800;font-size:46px;line-height:1.05">Vivienda en España</h1>
+<span class="muted" style="font-size:15px">Comunidades autónomas · 2008–2025</span>
+</div>
+<nav id="tabs" aria-label="Indicador" style="display:flex;flex-wrap:wrap;gap:10px"></nav>
+</header>
+
+<div class="def" id="def"></div>
+<div id="viewsw" style="display:none;gap:8px;flex-wrap:wrap" role="group" aria-label="Ver en el mapa"></div>
+
+<section class="card" style="display:flex;flex-wrap:wrap;align-items:center;gap:20px;padding:16px 20px">
+<button id="play" style="width:48px;height:48px;border-radius:50%;background:var(--fam);color:#0A0E13;display:flex;align-items:center;justify-content:center;flex:none"></button>
+<div id="yearbig" class="disp" style="font-weight:800;font-size:46px;line-height:1;min-width:112px;font-variant-numeric:tabular-nums"></div>
+<div style="flex:1 1 320px;display:flex;flex-direction:column;gap:6px">
+<input id="range" type="range" min="2008" max="2025" step="1" aria-label="Año" style="width:100%;margin:0;accent-color:var(--fam)">
+<div class="muted" style="display:flex;justify-content:space-between;font-size:12px"><span>2008</span><span>2025</span></div>
+</div>
+</section>
+
+<main class="row">
+<section class="card" style="flex:1 1 560px;min-width:0;display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 16px">
+<h2 class="disp" id="mapTitle" style="font-weight:600;font-size:22px"></h2>
+<span class="muted" style="font-size:13px">Pulsa un territorio para ver su ficha</span>
+</div>
+<div id="nodata" style="display:none;background:#2A1520;border:1px solid #5A2A3C;color:#FFD9E0;border-radius:10px;padding:10px 14px;font-size:14px"></div>
+<div class="tiles" id="tiles"></div>
+<div style="display:flex;flex-direction:column;gap:6px;max-width:440px">
+<div id="legbar" style="height:10px;border-radius:5px"></div>
+<div id="legend" class="muted" style="display:flex;justify-content:space-between;font-size:12px"></div>
+</div>
+</section>
+
+<div style="flex:1 1 420px;min-width:0;display:flex;flex-direction:column;gap:20px">
+<div id="kpis" style="display:flex;flex-wrap:wrap;gap:20px"></div>
+<section class="card" style="display:flex;flex-direction:column;gap:12px">
+<h2 class="disp" id="rankTitle" style="font-weight:600;font-size:22px"></h2>
+<div id="bars" style="display:flex;flex-direction:column;gap:4px"></div>
+</section>
+</div>
+</main>
+
+<section class="card" style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 16px">
+<h2 class="disp" id="chartTitle" style="font-weight:600;font-size:22px"></h2>
+<div id="chartLeg" style="display:flex;flex-wrap:wrap;gap:16px;font-size:13px;color:#C5D0DB"></div>
+</div>
+<svg id="chart" viewBox="0 0 860 300" role="img" style="width:100%;height:auto;display:block"></svg>
+<span id="chartNote" class="muted" style="font-size:13px"></span>
+</section>
+
+<footer id="foot" class="muted" style="display:flex;flex-wrap:wrap;gap:12px 32px;padding:4px;font-size:13px"></footer>
+</div>
+
+<script>
+const D = {"names":["Andalucía","Aragón","Asturias","Illes Balears","Canarias","Cantabria","Castilla y León","Castilla-La Mancha","Cataluña","Comunitat Valenciana","Extremadura","Galicia","Comunidad de Madrid","Región de Murcia","Navarra","País Vasco","La Rioja","Ceuta","Melilla"],"tn":["Andalucía","Aragón","Asturias","Baleares","Canarias","Cantabria","C. y León","C-La Mancha","Cataluña","C. Valenciana","Extremadura","Galicia","Madrid","Murcia","Navarra","País Vasco","La Rioja","Ceuta","Melilla"],"pos":[[1,3,3],[4,1,1],[1,0,1],[5,2,1],[0,4,1],[2,0,1],[1,1,2],[3,2,1],[5,1,1],[4,2,1],[1,2,1],[0,0,1],[2,2,1],[4,3,1],[4,0,1],[3,0,1],[3,1,1],[1,4,1],[4,4,1]],"alqN":[11,11.3,11.4,12.1,12,12.9,12.4,13.1,13.8,14.3,14.8,15.4,14.7,15.2,15.1,15.4,17,16.7],"alq":[[8.1,7.1,7.4,9,7.5,9.3,7.8,6.4,8.3,7.8,8.6,10.8,10.3,10.9,11.3,12,12.3,11.9],[10.6,10.9,11.8,13.5,11.5,14.6,12.4,11.9,7.7,10.5,12.6,15.9,17.2,16.7,14.7,14.6,15.6,14.8],[10.8,10.5,9.7,9.7,6.2,10.9,8.5,9.9,10.7,13.3,13.6,15,14.6,13.2,12.1,13.4,14.1,13.1],[25.8,21.4,20.8,20.2,23.3,25.3,27.9,26.4,20.5,20.8,24.3,31.7,25,27.2,26.8,27.6,25.6,21.3],[17,17.2,14.3,12.5,13.6,12.7,12.8,15.6,14.3,15.7,16.7,17,17.5,20.2,21.6,21.6,19.7,16.9],[9.4,11.9,8.6,9.5,7.5,10.1,10.4,12.7,10.2,11,13.1,10.3,14.2,15.8,13.8,14,14,12.4],[8.2,7.5,8.7,8.4,9,9.8,9.6,7.6,9.2,10.9,10.4,14,14.7,11.9,11.9,10.8,11.8,11.2],[11.5,12,14.8,13.7,12.8,11.3,8,10.6,11.6,14.5,14.6,15.2,13.5,12.5,12,11,13,13.4],[13.4,15,15.5,17.3,16.4,16.5,18.1,18.7,20.2,21.6,22.5,23.1,21,20.9,21.3,20.7,23.6,23.2],[8.8,9,8.3,8.7,10,11.7,11.3,12.8,13.7,13.9,15.2,13.6,11.3,12.4,11.4,13.3,16,17.4],[6.7,6.2,5.6,7.9,11.8,7.5,5.5,5.8,6.3,7.2,5.7,8.1,7.6,7,8.9,11.4,12.5,13.5],[6.7,7.5,7.5,9.1,9.6,10.5,8.3,10.2,10.1,10.2,7.1,8.1,9.1,9.5,12,12.2,13.8,14.6],[14.4,16.1,15.9,14.8,16.9,17.9,18.3,20.5,22.3,21,20.9,19.7,18.5,20.3,19,19.7,22.7,22.6],[14.2,13.6,13.9,13.2,11.7,13.8,11,9.9,9.8,9.8,12,9.8,9.5,13.9,12.5,13.4,15.4,17.5],[9.9,9,11.1,12.4,12.6,11.5,10,10.7,9.8,9.2,10.3,10.2,11.4,12.9,14,12.1,13.8,8.8],[6.7,6.8,7.3,9.9,7.3,8.9,8.3,9.4,9.4,9.3,10,8.2,11,9.3,9.5,9.9,11.4,11.7],[10,9.5,10.7,14.4,14.9,9.2,8.5,10,11.4,12.1,11.4,10.8,14.8,13.7,10.9,10.5,12.8,12.5],[13.3,3.6,7.5,8.1,15.9,11.5,13.8,17,17,19.4,9.8,11.4,16.1,17.1,18,14.2,17.2,19.5],[13.3,18.3,15.8,22.3,8.3,20.8,15,19.7,18,17,22.8,28.6,23.2,27,24.2,15.2,17.6,18.4]],"ipvN":[81.9,76.4,74.9,69.4,59.9,53.5,53.7,55.6,58.2,61.8,65.9,69.3,70.7,73.3,78.8,81.9,88.7,100],"ipv":[[75.1,72.7,71.5,67.2,59.3,54.1,54.2,55.8,57.4,59.2,62.2,65.5,67,70.1,76.3,80.1,88.5,100],[99.6,90.9,85.9,78.9,67.5,58.9,57.6,58.1,59.2,60.9,63.8,67.7,69.4,72,76.6,79.6,87.7,100],[90.9,90.1,88.8,83.7,71.5,62.9,61.5,62.4,63.3,64,66.3,69,71.2,74.2,78.8,81.7,88.1,100],[70.5,64.7,63.4,60,51.7,48,48.2,51.3,54.4,58.7,63.1,66.9,69.6,73.7,80.5,83.8,89.3,100],[80.1,77,75.1,70.8,61.4,56.1,55.4,57.3,59.2,61.8,64.9,67.4,68.2,72.1,78.6,82.8,89.4,100],[88.1,82.1,77.2,70,60.1,54.7,55.6,57.2,58.7,61,64.6,66.6,67.4,71.1,78,82,89.4,100],[96.1,93.5,90.9,85.3,74,63.6,62,62.8,63.5,64.5,67.2,70.4,72.1,74.6,79.1,81.4,87.7,100],[104.5,101.4,100.2,93.8,82.9,70.4,68.5,70,70.6,71.1,72.8,75.4,76.4,78.2,82.8,84.2,89.7,100],[86.4,76.6,74.5,67.4,56.7,50.3,50.8,53.3,57,62.5,68,71.5,72.9,75.4,80.8,83.6,89.8,100],[86.7,82,79.5,73.6,63.6,57.9,58.3,59.7,61.3,63,65.5,68.3,69.8,72.8,78,81.2,88.6,100],[98.3,97.9,99.3,93.3,85.6,73,70,71.3,72.3,72.6,74,75.4,75.8,77.6,81.7,83,89,100],[87.5,86.4,84.8,80.5,70,62.2,61.5,62.3,63.5,64.6,67.1,69.8,71.4,74.6,79.6,82.4,88.6,100],[74.9,67.2,67.4,61.6,52.1,46.2,47.4,50.1,54.4,60.7,66.8,70.8,72,73.8,78.8,81.9,88.2,100],[85.4,84.5,83.6,79.4,70.5,59.7,59.9,60.8,61.7,62.4,64.6,67.5,69.6,73.2,78.8,80.6,87.5,100],[109.8,98.8,92.6,85.5,73.5,65.2,60.9,61.3,62.3,63.7,65.9,68.4,69.6,71.5,76.7,81.3,89.7,100],[94.7,84.9,83.5,77.1,65.5,60,59.7,60.3,61.8,65,68.6,71.5,73.1,74.7,79.4,82.2,89.1,100],[102.5,96.9,93.2,82.9,70.9,61.2,59.8,60.1,61.3,62.6,65.6,69.2,70.5,73,78.2,80.4,87.8,100],[68.3,65.3,62.8,57.4,50.3,47.1,47.2,49.7,52.2,55.7,60.5,65.1,68,70.5,76.6,80.8,88.2,100],[68.5,69.9,70.3,63.7,56.2,49.1,49.3,51.1,53.8,56.6,61,64.2,67.1,71.4,77.3,81.5,88,100]],"lanN":[67189,68091,67359,63037,60754,59671,54006,29406,41359,38266,26659,27564,24540],"lan":[[9266,10344,10694,9998,10437,9795,8806,4517,6615,6717,4449,4027,3782],[1787,1736,1749,1723,1789,1565,1234,791,873,918,642,638,631],[1178,1241,1228,1144,1085,1091,1000,716,743,752,485,704,603],[2446,2518,2347,2291,2129,2001,1834,1109,1351,1209,880,880,851],[4331,4298,4391,3690,3524,3808,3333,1779,2763,2445,1782,1732,1426],[716,625,799,721,705,576,564,461,559,448,151,257,191],[2768,2798,2719,2720,2716,2504,2239,1577,1629,1596,1027,1122,875],[2762,2299,2664,2364,2420,2401,1745,980,1508,1264,748,857,740],[16008,15606,15557,14069,13308,13941,12446,5737,9398,8574,7148,7381,6814],[9776,10471,10037,9635,8207,8083,7390,4501,6182,5594,3869,3610,2992],[656,770,721,748,636,697,612,339,448,415,280,269,261],[2404,2519,2432,2384,2493,1709,2271,1398,1667,1559,1171,1191,1046],[8753,7966,7194,6674,6476,6435,5936,2872,4039,3679,2367,2756,2267],[2391,2840,2750,3063,2789,3178,2934,1504,2239,1857,779,1203,780],[390,384,442,416,415,377,329,220,247,230,134,156,167],[1151,1086,1147,960,1196,1191,1043,669,863,771,593,608,974],[406,590,488,437,429,319,290,236,235,238,154,173,140]]};
+Object.assign(D, {"rentN":[6.61,6.47,6.19,6.09,6.09,6.22,6.37,6.63,7.15,7.32,7.51,7.82,8.16,8.63],"rent":[[5.47,5.35,5.11,5.06,5.03,5.16,5.28,5.47,5.92,6.06,6.3,6.6,6.95,7.35],[5.84,5.63,5.35,5.22,5.19,5.25,5.33,5.49,5.87,6.02,6.22,6.47,6.77,7.1],[5.42,5.42,5.25,5.21,5.16,5.26,5.33,5.43,5.71,5.81,5.95,6.13,6.36,6.63],[6.06,6.0,5.9,5.94,6.05,6.25,6.54,7.03,7.72,7.84,8.13,8.6,9.09,9.62],[5.56,5.45,5.32,5.3,5.32,5.42,5.57,5.8,6.3,6.45,6.67,6.97,7.34,7.75],[5.9,5.8,5.56,5.46,5.38,5.48,5.56,5.67,6.0,6.13,6.32,6.54,6.85,7.22],[4.69,4.66,4.5,4.48,4.46,4.55,4.63,4.74,5.01,5.13,5.27,5.47,5.69,5.97],[4.86,4.65,4.36,4.22,4.13,4.21,4.26,4.38,4.71,4.85,5.01,5.25,5.56,5.86],[7.51,7.27,6.94,6.85,6.88,7.04,7.25,7.58,8.22,8.45,8.69,9.04,9.44,9.84],[4.44,4.3,4.1,4.02,4.02,4.12,4.22,4.39,4.79,4.96,5.19,5.5,5.87,6.32],[3.96,3.94,3.84,3.77,3.72,3.8,3.85,3.91,4.14,4.24,4.35,4.52,4.72,4.99],[4.46,4.47,4.37,4.34,4.32,4.38,4.44,4.52,4.78,4.9,5.06,5.24,5.47,5.77],[9.55,9.26,8.72,8.49,8.51,8.69,8.9,9.29,10.16,10.42,10.66,11.09,11.54,12.12],[4.19,4.08,3.9,3.81,3.8,3.85,3.92,4.05,4.34,4.44,4.62,4.84,5.08,5.38],[null,null,null,null,null,null,null,null,null,null,5.85,6.18,6.59,6.86],[null,null,null,null,null,null,null,null,null,null,null,null,null,10.09],[4.9,4.72,4.43,4.32,4.31,4.39,4.46,4.55,4.86,5.0,5.16,5.38,5.63,5.91],[7.69,7.75,7.59,7.63,7.59,7.78,7.69,7.95,8.33,8.46,8.75,8.79,9.2,9.45],[6.84,6.92,6.96,6.95,7.04,7.03,7.43,7.55,7.89,8.11,8.34,8.6,8.75,9.1]],"rentM":[[425.58,416.67,400.0,400.0,400.0,400.0,400.0,420.0,450.0,458.41,483.0,500.0,525.0,550.0],[422.08,402.93,395.0,377.67,375.0,375.56,381.02,400.0,415.88,430.0,450.0,456.42,483.93,500.0],[400.0,400.0,383.14,380.0,375.0,380.0,385.0,397.97,400.0,410.0,425.0,440.0,450.0,467.67],[500.0,491.67,476.67,480.0,500.0,500.0,506.94,550.0,600.0,605.0,644.12,670.83,700.0,750.0],[400.0,400.0,390.0,385.0,390.0,400.0,400.0,410.0,450.0,450.67,475.0,500.0,508.33,550.0],[442.38,430.01,405.56,400.0,400.0,400.0,400.0,410.17,447.72,450.0,452.96,479.86,500.0,520.0],[390.0,381.25,369.0,360.63,360.0,370.0,375.0,381.67,400.0,401.1,420.0,435.0,450.0,470.31],[400.0,393.01,360.0,350.0,350.0,350.0,350.0,350.0,388.03,400.0,400.0,425.0,450.0,471.33],[547.95,525.0,500.0,500.0,500.0,500.0,506.94,543.0,587.5,600.0,613.5,647.95,666.92,700.0],[390.0,372.0,350.0,350.0,350.0,350.0,356.25,375.0,400.0,420.0,447.08,456.25,500.0,525.78],[350.0,350.0,337.5,330.0,325.0,333.33,338.33,349.04,356.58,364.33,375.65,395.0,400.0,425.0],[354.86,352.0,350.0,350.0,349.56,350.0,350.0,350.0,375.0,380.0,400.0,400.0,422.72,450.0],[650.0,622.96,600.0,575.0,570.0,587.5,600.0,612.5,677.53,700.0,700.0,737.5,759.27,800.0],[366.67,350.0,345.83,330.0,330.0,340.0,350.0,350.0,375.0,390.0,400.0,404.08,439.35,450.0],[null,null,null,null,null,null,null,null,null,null,500.0,545.0,573.46,598.36],[null,null,null,null,null,null,null,null,null,null,null,null,null,729.08],[400.0,391.67,366.67,350.0,350.0,358.82,367.68,375.0,400.0,403.31,422.97,450.0,452.98,482.82],[566.18,583.33,561.87,558.09,566.96,590.0,587.5,600.0,600.0,623.05,644.7,650.0,650.0,675.0],[490.0,500.0,500.0,500.0,500.0,500.0,520.0,530.0,550.0,553.59,564.62,587.59,600.0,600.0]],"rentMN":[490.0,476.0,458.0,451.0,450.0,456.0,462.0,480.0,518.0,530.0,544.0,567.0,590.0,624.0]});
+Object.assign(D, {"cnames":["Madrid","Barcelona","València","Zaragoza","Sevilla","Málaga","Murcia","Palma","Las Palmas de Gran Canaria","Alicante","Bilbao","Córdoba","Valladolid","Vigo","L'Hospitalet de Llobregat"],"ctn":["Madrid","Barcelona","València","Zaragoza","Sevilla","Málaga","Murcia","Palma","Las Palmas","Alicante","Bilbao","Córdoba","Valladolid","Vigo","L'Hospitalet"],"cpop":[3506730,1731649,840792,693091,689423,599063,479405,434786,381868,366221,351124,323262,302614,294489,289510],"cp":[[10.84,10.58,10,9.8,9.85,10.03,10.36,10.83,11.86,12.12,12.31,12.77,13.3,13.97],[10.14,9.89,9.47,9.33,9.42,9.68,10.12,10.78,11.76,12,12.12,12.57,13.14,13.68],[5.15,5,4.74,4.64,4.68,4.81,4.96,5.25,5.85,6.14,6.5,6.97,7.52,8.18],[6.4,6.18,5.85,5.68,5.64,5.7,5.79,5.97,6.37,6.55,6.76,7.04,7.36,7.72],[7.01,6.85,6.49,6.43,6.37,6.52,6.67,6.92,7.56,7.75,7.99,8.33,8.72,9.17],[6.25,6.03,5.8,5.76,5.78,5.95,6.16,6.52,7.27,7.5,7.81,8.32,8.86,9.55],[4.94,4.75,4.54,4.44,4.42,4.48,4.6,4.74,5.12,5.26,5.49,5.79,6.13,6.52],[6.25,6.12,5.97,5.96,6.09,6.28,6.58,7.12,7.9,8.05,8.33,8.78,9.26,9.84],[5.8,5.78,5.65,5.66,5.71,5.83,5.95,6.13,6.61,6.83,7.05,7.32,7.69,8.1],[4.84,4.62,4.44,4.44,4.46,4.65,4.77,4.92,5.41,5.63,5.84,6.17,6.56,7.11],[null,null,null,null,null,null,null,null,null,null,null,null,null,11.51],[5.73,5.7,5.48,5.41,5.38,5.49,5.57,5.76,6.17,6.26,6.42,6.6,6.85,7.14],[5.32,5.26,5.08,5.01,4.97,5.07,5.16,5.3,5.67,5.81,5.96,6.19,6.45,6.76],[5.63,5.64,5.52,5.45,5.44,5.57,5.71,5.86,6.28,6.48,6.69,7,7.3,7.61],[10.15,9.75,9.09,8.79,8.82,9.03,9.42,10,10.91,11.25,11.57,12.01,12.5,13]],"cr":[[700,671,639,613,615,635,650,680,750,754,765,800,825,869],[678,660,633,623,630,650,675,715,783,800,800,830,867,900],[447,425,400,400,400,400,417,450,500,513,550,590,625,681],[451,443,410,400,400,400,400,415,450,454,475,500,510,550],[521,504,497,480,478,499,500,508,560,575,596,600,641,668],[500,473,450,450,450,450,470,500,550,575,600,625,666,718],[400,400,370,359,358,367,380,400,418,438,450,475,500,525],[518,500,500,500,500,503,550,588,648,650,675,700,750,800],[428,430,420,420,426,440,450,450,500,500,513,548,556,600],[417,400,400,400,400,400,401,425,464,495,500,529,562,608],[null,null,null,null,null,null,null,null,null,null,null,null,null,800],[450,450,425,407,402,415,425,440,463,474,487,500,504,540],[433,425,408,400,400,401,412,425,450,458,474,493,500,531],[424,420,404,400,400,400,414,425,450,457,475,500,510,549],[583,550,515,500,500,500,525,555,600,631,650,670,700,726]],"cpN":[8.63,8.45,8.06,7.92,7.96,8.13,8.41,8.84,9.63,9.85,10.04,10.45,10.92,11.48],"crN":[593,575,550,536,538,551,568,596,652,661,674,704,731,772]});
+const CFG = {
+  alq:{tab:'Hogares en alquiler',sub:'% de hogares · INE ECV',label:'Hogares en alquiler a precio de mercado',unitName:'% de hogares',unit:'%',dec:1,fam:'#2DD4BF',grad:'linear-gradient(90deg,#10302F,#1B7F78,#5EEAD4)',lo:'5 %',mid:'15 %',hi:'25 %',d0:0,d1:30,from:2008,
+    def:'<b>Qué mide:</b> porcentaje de hogares de cada comunidad que vive en una vivienda alquilada a precio de mercado. Es un valor de <b>nivel</b> (no una variación). En la ficha, el cambio respecto al año anterior se muestra en <b>puntos porcentuales (pp)</b>.',
+    src:'INE, Encuesta de Condiciones de Vida (tabla 76845)',cov:'2008–2025 · 17 CCAA, Ceuta y Melilla',warn:'Muestra pequeña en Ceuta, Melilla y CCAA pequeñas: la serie es irregular.'},
+  ipv:{tab:'Precio de la vivienda',sub:'variación anual % · INE IPV',label:'Precio de la vivienda · variación anual',unitName:'variación % anual',unit:'%',dec:1,fam:'#FBBF24',grad:'linear-gradient(90deg,#5B8DEF,#26303C,#FBBF24)',lo:'−16 %',mid:'0 %',hi:'+14 %',d0:-16,d1:14,from:2009,
+    def:'<b>Qué mide:</b> variación porcentual del Índice de Precios de Vivienda (IPV) de cada año respecto al año anterior, calculada a partir de las medias anuales del índice (base 2025 = 100). Azul = el precio baja, ámbar = sube. En la ficha, el cambio se muestra en <b>puntos porcentuales (pp)</b> entre las dos variaciones.',
+    src:'INE, Índice de Precios de Vivienda, medias anuales (tabla 80271)',cov:'2009–2025 · variación calculada sobre el índice',warn:'El índice se muestra redondeado a un decimal en esta versión; 2008 queda sin dato por falta del índice de 2007.'},
+  lan:{tab:'Lanzamientos',sub:'número · CGPJ',label:'Lanzamientos practicados',unitName:'número de lanzamientos',unit:'',dec:0,fam:'#FB7185',grad:'linear-gradient(90deg,#2A1520,#9B2C4A,#FB7185)',lo:'0',mid:'4.000',hi:'16.000',d0:0,d1:17000,from:2013,
+    def:'<b>Qué mide:</b> número de <b>lanzamientos practicados</b>, es decir, desahucios efectivamente ejecutados: el día en que la comisión judicial hace salir a los ocupantes y entrega el inmueble (no son demandas ni sentencias). Son <b>cifras absolutas</b>, no porcentajes. El CGPJ distingue ejecución hipotecaria, alquiler (LAU) y otros; aquí se muestra el total. En la ficha, la comparación con el año anterior sí va en %.',
+    src:'CGPJ, Efectos de la crisis en los órganos judiciales (serie por TSJ)',cov:'2013–2025 · Ceuta y Melilla incluidas en Andalucía',warn:'Cifras absolutas por TSJ; no existe serie antes de 2013. Pendiente confirmar si la cifra se limita a vivienda habitual.'}
+};
+CFG.ren={tab:'Precio del alquiler CCAA',sub:'€/m² al mes · MIVAU SERPAVI',label:'Precio mediano del alquiler',unitName:'€/m² al mes',unit:'€/m²',dec:2,fam:'#A78BFA',grad:'linear-gradient(90deg,#1E1B3A,#5B4BC4,#C4B5FD)',lo:'3,5 €',mid:'8 €',hi:'12,5 €',d0:0,d1:13,from:2011,to:2024,
+  def:'<b>Qué mide:</b> precio mediano del alquiler de pisos en <b>€ por m² y mes</b>, a partir de las declaraciones de IRPF de arrendadores (Modelo 100) cruzadas con el Catastro (SERPAVI, Ministerio de Vivienda), para cada comunidad. Usa el selector para ver en el mapa el <b>precio</b> o su <b>variación anual</b>; la ficha muestra siempre ambos y la renta mensual mediana. La fuente publica <b>medianas</b>, no medias; la cifra nacional es la media de las medianas autonómicas ponderada por número de contratos.',
+  src:'Ministerio de Vivienda y Agenda Urbana, SERPAVI (alquiler en viviendas colectivas)',cov:'2011–2024 · 19 territorios (Navarra desde 2021, País Vasco solo 2024)',warn:'Solo incluye alquileres de vivienda habitual declarados en el IRPF: no recoge el alquiler no declarado. Sin datos de 2025 todavía.'};
+CFG.renv=Object.assign({},CFG.ren,{label:'Variación anual del precio del alquiler',unitName:'variación % anual',unit:'%',dec:1,grad:'linear-gradient(90deg,#5B8DEF,#26303C,#C4B5FD)',lo:'−8 %',mid:'0 %',hi:'+12 %',d0:-8,d1:12,from:2012});
+CFG.ciu={tab:'Precio del alquiler ciudades',sub:'€/m² al mes · 15 mayores ciudades',label:'Precio mediano del alquiler en las 15 mayores ciudades',unitName:'€/m² al mes',unit:'€/m²',dec:2,fam:'#FB923C',grad:'linear-gradient(90deg,#2B1A0E,#B45309,#FDBA74)',lo:'3,5 €',mid:'8 €',hi:'12,5 €',d0:0,d1:15,from:2011,to:2024,
+  def:'<b>Qué mide:</b> precio mediano del alquiler de pisos en <b>€ por m² y mes</b> en los <b>15 municipios más poblados</b> (padrón INE 1-ene-2025), a partir de las declaraciones de IRPF de arrendadores cruzadas con el Catastro (SERPAVI, Ministerio de Vivienda). Usa el selector para ver el <b>precio</b> o su <b>variación anual</b>. La ficha muestra también la renta mensual mediana. Son <b>medianas</b>; la referencia es la media de las medianas de 14 ciudades ponderada por número de contratos (sin Bilbao, que solo tiene 2024).',
+  src:'Ministerio de Vivienda y Agenda Urbana, SERPAVI (nivel municipal, viviendas colectivas) · población: INE, padrón 2025',cov:'2011–2024 · Bilbao solo 2024 (Bizkaia no aporta serie anterior)',warn:'Solo alquileres de vivienda habitual declarados en el IRPF. Las ciudades con pocos contratos pueden tener series más irregulares.'};
+CFG.ciuv=Object.assign({},CFG.ciu,{label:'Variación anual del precio del alquiler en las 15 mayores ciudades',unitName:'variación % anual',unit:'%',dec:1,grad:'linear-gradient(90deg,#5B8DEF,#26303C,#FDBA74)',lo:'−8 %',mid:'0 %',hi:'+12 %',d0:-8,d1:12,from:2012});
+const isRen=k=>k==='ren'||k==='ciu';
+const S = {ind:'alq',year:2025,sel:12,selC:0,playing:false,view:'precio'};
+let timer=null;
+const $ = id => document.getElementById(id);
+const hex = h => [1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
+const mix = (a,b,t)=>{const A=hex(a),B=hex(b);return '#'+A.map((x,i)=>Math.round(x+(B[i]-x)*t).toString(16).padStart(2,'0')).join('')};
+const ramp=(st,t)=>{t=Math.max(0,Math.min(1,t));const n=st.length-1,k=Math.min(n-1,Math.floor(t*n));return mix(st[k],st[k+1],t*n-k)};
+const lum=h=>{const c=hex(h).map(x=>{x/=255;return x<=.03928?x/12.92:Math.pow((x+.055)/1.055,2.4)});return .2126*c[0]+.7152*c[1]+.0722*c[2]};
+const num=(v,d)=>{const p=Math.abs(v).toFixed(d||0).split('.');return (v<0?'−':'')+p[0].replace(/\B(?=(\d{3})+(?!\d))/g,'.')+(p[1]?','+p[1]:'')};
+const sgn=(v,d)=>(v>0?'+':'')+num(v,d);
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+function colorOf(ind,v){
+  if(v==null)return '#161D26';
+  if(ind==='alq')return ramp(['#10302F','#1B7F78','#5EEAD4'],(v-5)/20);
+  if(ind==='ipv')return v<0?mix('#26303C','#5B8DEF',Math.min(1,-v/16)):mix('#26303C','#FBBF24',Math.min(1,v/14));
+  if(ind==='ciu')return ramp(['#2B1A0E','#B45309','#FDBA74'],(v-3.5)/10);
+  if(ind==='ciuv')return v<0?mix('#26303C','#5B8DEF',Math.min(1,-v/8)):mix('#26303C','#FDBA74',Math.min(1,v/10));
+  if(ind==='ren')return ramp(['#1E1B3A','#5B4BC4','#C4B5FD'],(v-3.5)/9);
+  if(ind==='renv')return v<0?mix('#26303C','#5B8DEF',Math.min(1,-v/8)):mix('#26303C','#C4B5FD',Math.min(1,v/10));
+  return ramp(['#2A1520','#9B2C4A','#FB7185'],Math.sqrt(v/16100));
+}
+function ser(ind,idx){
+  if(ind==='ren'||ind==='renv'||ind==='ciu'||ind==='ciuv'){
+    const c4=ind[0]==='c';
+    const a=idx<0?(c4?D.cpN:D.rentN):(c4?D.cp[idx]:D.rent[idx]);
+    const base=Array.from({length:18},(_,i)=>(i>=3&&i<=16)?a[i-3]:null);
+    if(ind==='ren'||ind==='ciu')return base;
+    return base.map((v,i)=>(i>0&&v!=null&&base[i-1]!=null)?Math.round((v/base[i-1]-1)*1000)/10:null);
+  }
+  if(ind==='alq')return (idx<0?D.alqN:D.alq[idx]).slice();
+  if(ind==='ipv'){const a=idx<0?D.ipvN:D.ipv[idx];return a.map((v,i)=>i===0?null:Math.round((v/a[i-1]-1)*1000)/10)}
+  const a=idx<0?D.lanN:(idx<17?D.lan[idx]:null);
+  return Array.from({length:18},(_,i)=>(a&&i>=5)?a[i-5]:null);
+}
+function spark(arr){
+  const w=160,h=44,v=arr.filter(x=>x!=null);if(!v.length)return '';
+  const mn=Math.min(...v),mx=Math.max(...v);let d='',pen=false;
+  arr.forEach((x,i)=>{if(x==null){pen=false;return}
+    d+=(pen?'L':'M')+(i/17*w).toFixed(1)+' '+(h-3-(x-mn)/((mx-mn)||1)*(h-6)).toFixed(1)+' ';pen=true});
+  return d;
+}
+function delta(ind,now,prev,year){
+  if(now==null||prev==null)return 'Sin dato del año anterior';
+  if(ind==='lan')return sgn((now/prev-1)*100,1)+' % vs. '+(year-1);
+  if(ind==='ren'||ind==='ciu')return sgn((now/prev-1)*100,1)+' % ('+sgn(now-prev,2)+' €/m²) vs. '+(year-1);
+  return sgn(now-prev,1)+' pp vs. '+(year-1);
+}
+function stop(){clearInterval(timer);S.playing=false}
+function togglePlay(){
+  if(S.playing){stop();render();return}
+  if(S.year>=2025)S.year=2008;
+  S.playing=true;render();
+  timer=setInterval(()=>{if(S.year+1>2025){stop();render();return}S.year++;render()},900);
+}
+function render(){
+  const isC=S.ind==='ciu';const sel=isC?S.selC:S.sel;
+  const NM=isC?D.cnames:D.names,TN=isC?D.ctn:D.tn,POS=isC?D.cnames.map((_,i)=>[i%5,Math.floor(i/5),1]):D.pos;
+  const RM=isC?D.cr:D.rentM,RMN=isC?D.crN:D.rentMN;
+  const ek=(isRen(S.ind)&&S.view==='var')?S.ind+'v':S.ind;const c=CFG[ek],ind=ek,yi=S.year-2008;
+  const app=$('app');app.style.setProperty('--fam',c.fam);
+  const fv=v=>v==null?'—':num(v,c.dec)+(c.unit?' '+c.unit:'');
+  const vals=NM.map((_,i)=>ser(ind,i)[yi]);
+  const natS=ser(ind,-1),natV=natS[yi],natP=yi>0?natS[yi-1]:null;
+  const selS=ser(ind,sel),selV=selS[yi],selP=yi>0?selS[yi-1]:null;
+
+  $('tabs').innerHTML=Object.keys(CFG).filter(k=>k!=='renv'&&k!=='ciuv').map(k=>{const t=CFG[k],on=k===S.ind;
+    return `<button class="tab" data-ind="${k}" aria-pressed="${on}" title="${esc(t.def.replace(/<[^>]+>/g,''))}" style="background:${on?t.fam:'#121821'};color:${on?'#0A0E13':'#E8EEF4'};border-color:${on?t.fam:'#2A3541'}"><span style="font-weight:600;font-size:15px">${t.tab}</span><small>${t.sub}</small></button>`}).join('');
+  $('def').innerHTML=c.def;
+  $('viewsw').style.display=isRen(S.ind)?'flex':'none';
+  $('viewsw').innerHTML=[['precio','Precio (€/m² al mes)'],['var','Variación anual (%)']].map(([k,l])=>`<button data-view="${k}" aria-pressed="${S.view===k}" style="padding:8px 14px;border-radius:999px;font-size:13px;font-weight:600;background:${S.view===k?c.fam:'#121821'};color:${S.view===k?'#0A0E13':'#E8EEF4'};border:1px solid ${S.view===k?c.fam:'#2A3541'}">${l}</button>`).join('');
+  $('play').innerHTML=S.playing?'<svg width="18" height="18" viewBox="0 0 18 18"><rect x="3" y="2" width="4" height="14" fill="currentColor"/><rect x="11" y="2" width="4" height="14" fill="currentColor"/></svg>':'<svg width="18" height="18" viewBox="0 0 18 18"><path d="M4 2 L16 9 L4 16 Z" fill="currentColor"/></svg>';
+  $('play').setAttribute('aria-label',S.playing?'Pausar animación':'Reproducir evolución');
+  $('yearbig').textContent=S.year;$('range').value=S.year;
+
+  $('mapTitle').innerHTML=esc(c.label)+' · '+S.year+'<span class="unitchip">'+c.unitName+'</span>';
+  const nd=S.year<c.from||S.year>(c.to||2025);$('nodata').style.display=nd?'block':'none';
+  $('nodata').textContent='Serie disponible de '+c.from+' a '+(c.to||2025)+'. Elige un año dentro de ese rango.';
+  $('tiles').style.gridTemplateColumns='repeat('+(isC?5:6)+',minmax(0,1fr))';
+  $('tiles').innerHTML=NM.map((n,i)=>{
+    const v=vals[i],bg=colorOf(ind,v),p=POS[i],cc=(ind==='lan'&&i>=17);
+    const ink=v==null?'#8FA1B3':(lum(bg)>.36?'#0A0E13':'#F3F7FA');
+    return `<button class="tile" data-sel="${i}" aria-pressed="${i===sel}" aria-label="${esc(n)}: ${cc?'incluida en Andalucía':fv(v)}" style="grid-column:${p[0]+1} / span ${p[2]};grid-row:${p[1]+1};background:${bg};color:${ink};outline:${i===sel?'3px solid #F3F7FA':'3px solid transparent'}"><span style="font-size:12px;font-weight:600;line-height:1.2">${esc(TN[i])}</span><span class="disp" style="font-weight:700;font-size:21px;font-variant-numeric:tabular-nums">${cc?'—':fv(v)}</span></button>`}).join('');
+  $('legbar').style.background=c.grad;
+  $('legend').innerHTML=`<span>${c.lo}</span><span>${c.mid}</span><span>${c.hi}</span>`;
+
+  const selSub=selV==null?((ind==='lan'&&sel>=17)?'Incluida en el TSJ de Andalucía':'Sin dato este año'):'';
+  const entries=vals.map((v,i)=>({v,i})).filter(e=>e.v!=null).sort((a,b)=>b.v-a.v);
+  const rank=entries.findIndex(e=>e.i===sel)+1;
+  const kp=[
+    {l:isC?'Media 14 ciudades':'Total nacional',v:fv(natV),d:delta(ind,natV,natP,S.year),sp:spark(natS),col:'#E8EEF4',sub:ind==='lan'?'Suma de los 17 TSJ':(isRen(S.ind)?(isC?'Media ponderada de 14 ciudades · ':'Media ponderada de medianas · ')+(S.year>=2011&&S.year<=2024?num(RMN[S.year-2011],0)+' €/mes':'sin dato'):'Serie '+c.cov.split(' · ')[0])},
+    {l:NM[sel],v:(ind==='lan'&&sel>=17)?'—':fv(selV),d:delta(ind,selV,selP,S.year),sp:spark(selS),col:c.fam,sub:selSub||('N.º '+rank+' de '+entries.length+(isC?' ciudades':' territorios')+(isRen(S.ind)&&S.year>=2011&&S.year<=2024&&RM[sel][S.year-2011]!=null?' · '+num(RM[sel][S.year-2011],0)+' €/mes':''))}];
+  $('kpis').innerHTML=kp.map(k=>`<article class="card kpi" style="padding:18px"><span class="muted" style="font-size:13px">${esc(k.l)}</span><span class="big disp">${k.v}</span><span style="font-size:13px;color:#C5D0DB">${k.d}</span><svg viewBox="0 0 160 44" preserveAspectRatio="none" style="width:100%;height:44px;display:block"><path d="${k.sp}" fill="none" stroke="${k.col}" stroke-width="2" vector-effect="non-scaling-stroke"/></svg><span class="muted" style="font-size:12px">${k.sub}</span></article>`).join('');
+
+  $('rankTitle').textContent='Ranking · '+S.year+' ('+c.unitName+')';
+  const zero=Math.max(0,(0-c.d0)/(c.d1-c.d0));
+  $('bars').innerHTML=entries.map(e=>{
+    const pos=Math.max(0,Math.min(1,(e.v-c.d0)/(c.d1-c.d0)));
+    return `<button class="bar" data-sel="${e.i}" aria-label="${esc(NM[e.i])}: ${fv(e.v)}" style="background:${e.i===sel?'#1E2833':'transparent'}"><span style="flex:0 0 118px;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(NM[e.i])}</span><span class="track"><span class="fill" style="left:${(Math.min(zero,pos)*100).toFixed(1)}%;width:${(Math.abs(pos-zero)*100).toFixed(1)}%;background:${colorOf(ind,e.v)}"></span></span><span style="flex:0 0 74px;text-align:right;font-size:13px;font-variant-numeric:tabular-nums">${fv(e.v)}</span></button>`}).join('');
+
+  // chart
+  const W=860,H=300,pl=48,pr=16,pt=28,pb=30,xOf=y=>pl+(y-2008)/17*(W-pl-pr);
+  const natPlot=ind==='lan'?natS.map(v=>v==null?null:v/17):natS;
+  const all=natPlot.concat(selS).filter(v=>v!=null);
+  let mn=Math.min(...all),mx=Math.max(...all);
+  if(ind==='lan')mn=0;else if(ind==='ipv'||ind==='renv')mn=Math.min(mn,0);else mn=Math.max(0,Math.floor(mn-2));
+  mx=mx+(mx-mn)*.08;
+  const yOf=v=>pt+(1-(v-mn)/((mx-mn)||1))*(H-pt-pb);
+  const pathOf=a=>{let d='',pen=false;a.forEach((v,i)=>{if(v==null){pen=false;return}d+=(pen?'L':'M')+xOf(2008+i).toFixed(1)+' '+yOf(v).toFixed(1)+' ';pen=true});return d};
+  let g='';
+  g+=`<rect x="${xOf(2008)}" y="28" width="${xOf(2013)-xOf(2008)}" height="242" fill="rgba(143,161,179,.09)"/>`;
+  for(let k=0;k<5;k++){const v=mn+(mx-mn)*k/4;g+=`<line x1="48" x2="844" y1="${yOf(v).toFixed(1)}" y2="${yOf(v).toFixed(1)}" stroke="#1F2933"/><text x="40" y="${(yOf(v)+4).toFixed(1)}" text-anchor="end" font-size="11" fill="#8FA1B3">${num(v,0)}</text>`}
+  for(let y=2008;y<=2025;y+=2)g+=`<text x="${xOf(y).toFixed(1)}" y="292" text-anchor="middle" font-size="11" fill="#8FA1B3">${y}</text>`;
+  g+=`<text x="${xOf(2008)+4}" y="20" font-size="11" fill="#C5D0DB">Crisis 2008–2013</text>`;
+  [[2020,'Covid-19'],[2023,'Ley de vivienda']].forEach(([y,l])=>{g+=`<line x1="${xOf(y)}" x2="${xOf(y)}" y1="28" y2="270" stroke="#8FA1B3" stroke-dasharray="3 4"/><text x="${xOf(y)}" y="20" text-anchor="middle" font-size="11" fill="#C5D0DB">${l}</text>`});
+  g+=`<line x1="${xOf(S.year)}" x2="${xOf(S.year)}" y1="28" y2="270" stroke="${c.fam}" stroke-opacity=".55" stroke-width="1.5"/>`;
+  g+=`<path d="${pathOf(natPlot)}" fill="none" stroke="#8FA1B3" stroke-width="2" stroke-dasharray="5 4"/><path d="${pathOf(selS)}" fill="none" stroke="${c.fam}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>`;
+  if(natPlot[yi]!=null)g+=`<circle cx="${xOf(S.year)}" cy="${yOf(natPlot[yi])}" r="5" fill="#8FA1B3" stroke="#121821" stroke-width="2"/>`;
+  if(selS[yi]!=null)g+=`<circle cx="${xOf(S.year)}" cy="${yOf(selS[yi])}" r="5" fill="${c.fam}" stroke="#121821" stroke-width="2"/>`;
+  $('chart').innerHTML=g;$('chart').setAttribute('aria-label','Evolución 2008–2025 de '+NM[sel]);
+  const natName=ind==='lan'?'Media por CCAA':(isC?'Media 14 ciudades (ponderada)':(S.ind==='ren'?'Media ponderada nacional':'Total nacional'));
+  $('chartTitle').textContent='Evolución · '+NM[sel]+' ('+c.unitName+')';
+  $('chartLeg').innerHTML=`<span style="display:flex;align-items:center;gap:8px"><span style="width:22px;border-top:2px dashed #8FA1B3"></span>${natName}</span><span style="display:flex;align-items:center;gap:8px"><span style="width:22px;height:3px;border-radius:2px;background:${c.fam}"></span>${esc(NM[sel])}</span>`;
+  $('chartNote').textContent=ind==='lan'?'Sin datos del CGPJ antes de 2013.'+(sel>=17?' Ceuta y Melilla se cuentan dentro de Andalucía.':''):(ind==='ipv'?'Variación anual del índice de medias anuales; 2008 sin dato.':(isRen(S.ind)?'Serie SERPAVI 2011–2024; la variación empieza en 2012.'+(isC?' Bilbao solo tiene dato en 2024.':''):'Porcentaje de hogares en alquiler a precio de mercado.'));
+  $('foot').innerHTML=`<span><b style="color:#C5D0DB;font-weight:600">Fuente:</b> ${c.src}</span><span><b style="color:#C5D0DB;font-weight:600">Cobertura:</b> ${c.cov}</span><span><b style="color:#C5D0DB;font-weight:600">Aviso:</b> ${c.warn}</span><span><b style="color:#C5D0DB;font-weight:600">Descarga:</b> 11–12 oct 2026</span>`;
+}
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-ind]');if(t){S.ind=t.dataset.ind;render();return}
+  const vw=e.target.closest('[data-view]');if(vw){S.view=vw.dataset.view;render();return}
+  const s=e.target.closest('[data-sel]');if(s){if(S.ind==='ciu')S.selC=+s.dataset.sel;else S.sel=+s.dataset.sel;render();return}
+  if(e.target.closest('#play'))togglePlay();
+});
+$('range').addEventListener('input',e=>{S.year=+e.target.value;render()});
+render();
+</script>
+</body>
+</html>
