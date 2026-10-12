@@ -17,7 +17,7 @@ Panel interactivo, en un único archivo HTML y sin dependencias, que combina dat
 
 Las pestañas de precio del alquiler, precio de la vivienda y vivienda pública tienen además una vista **Acumulado en un rango**: eliges dos años y ves cuánto ha subido o bajado el precio entre ambos (cambio total del periodo, no suma de variaciones anuales).
 
-Cada pestaña tiene mapa de casillas por territorio, selector de año con reproducción, ficha del territorio, ranking y gráfico de evolución frente a la referencia nacional.
+Las pestañas por comunidad autónoma tienen un mapa geográfico real (con Canarias en recuadro y Ceuta y Melilla como círculos); la de ciudades usa un mapa de casillas. Todas incluyen selector de año con reproducción, ficha del territorio, ranking y gráfico de evolución frente a la referencia nacional.
 
 ## Uso en local
 
@@ -57,6 +57,9 @@ Los datos originales pertenecen a sus organismos: Instituto Nacional de Estadís
 
 ## Próximos pasos
 
-- Mapa geográfico real en lugar de casillas.
 - Pestañas de viviendas libres terminadas, compraventas e hipotecas.
 - Lectura de los datos desde los CSV en lugar de incrustarlos.
+
+## Atribución del mapa
+
+La geometría de las comunidades autónomas procede del repositorio [codeforgermany/click_that_hood](https://github.com/codeforgermany/click_that_hood) (fichero `spain-communities.geojson`, repositorio con licencia MIT; los datos se indican como «CartoDB Common Data», sin que el origen y la licencia subyacentes estén claros). Se ha simplificado y reproyectado; el resultado está en `datos_raw/geo/ccaa_mapa_simplificado.json`.

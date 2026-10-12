@@ -2,6 +2,15 @@
 
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y versionado semántico.
 
+## [0.4.0] - 2026-10-12
+
+### Añadido
+- **Mapa geográfico real** (SVG) en todas las pestañas por comunidad autónoma, con valores sobre cada territorio, selección por clic o teclado, Canarias en recuadro y Ceuta/Melilla como círculos. Funciona también en la vista acumulada.
+- Geometría simplificada en `datos_raw/geo/ccaa_mapa_simplificado.json` y atribución en el README.
+
+### Sin cambios
+- La pestaña de ciudades mantiene el mapa de casillas.
+
 ## [0.3.0] - 2026-10-12
 
 ### Añadido
