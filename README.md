@@ -16,6 +16,7 @@ Panel interactivo, en un único archivo HTML y sin dependencias, que combina dat
 | Vivienda pública | Viviendas protegidas con calificación definitiva (promotor público o total), su variación anual y acumulada | Ministerio de Transportes, Boletín Online (tablas 1.6 y 1.6.2.2) | Público 2014–2025 · total 2008–2025 |
 | Compraventas e hipotecas | Compraventas de viviendas (total, nueva, segunda mano), hipotecas sobre viviendas e importe medio | INE, ETDP (tabla 6155) y Estadística de Hipotecas (tabla 3223) | 2008–2025 |
 | Accesibilidad del alquiler | Esfuerzo: % de la renta neta media del hogar que supondría alquilar un piso de 40–100 m² | MIVAU SERPAVI + INE, ECV (tabla 49146) | 2011–2024 |
+| Accesibilidad alquiler ciudades | Esfuerzo de alquiler en las 15 mayores ciudades (renta municipal) | MIVAU SERPAVI + INE, Atlas de Distribución de Renta de los Hogares | 2015–2024 (renta de 2024 = la de 2023) |
 | Comparación | Gráfico de dispersión entre dos indicadores cualesquiera (valor en un año o cambio acumulado), con recta y correlación | Todas las anteriores | Según indicador |
 | Ranking acumulado | Tabla ordenable con el cambio acumulado de 10 indicadores por comunidad entre dos años | Todas las anteriores | Según indicador |
 

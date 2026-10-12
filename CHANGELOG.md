@@ -2,6 +2,12 @@
 
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y versionado semántico.
 
+## [0.7.0] - 2026-10-12
+
+### Añadido
+- Pestaña **Accesibilidad alquiler ciudades**: esfuerzo de alquiler (precio mediano SERPAVI municipal × m² × 12 ÷ renta neta media del hogar) en las 15 mayores ciudades, con selector de superficie (40–100 m²). Renta: INE, Atlas de Distribución de Renta de los Hogares (2015–2023); para 2024 se usa la renta de 2023 (último dato) y así se indica.
+- Nueva fuente en `datos_raw/ine/`: renta neta media por hogar de las 15 ciudades (series ADRH del INE).
+
 ## [0.6.0] - 2026-10-12
 
 ### Añadido

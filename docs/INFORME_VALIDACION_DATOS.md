@@ -65,3 +65,10 @@ INE: API Tempus (servicios.ine.es). CGPJ: Excel "Series - Efecto de la crisis ..
 - **Esfuerzo de alquiler** = precio mediano €/m² (SERPAVI) × m² × 12 ÷ renta neta media del hogar. Se alinea el año del alquiler X con la encuesta X+1 (los ingresos de la ECV 2025 se refieren a 2024). Resultado nacional 2024 con 60 m²: 15,9 %.
 - **Limitaciones**: mezcla una mediana de precios de contratos vigentes con una renta media de todos los hogares (el hogar medio no alquila un piso de 60 m²); es un indicador comparativo, no el esfuerzo de un hogar concreto. Navarra desde 2021 y País Vasco solo 2024 (limitación de SERPAVI).
 - **Comparación y ranking**: cálculos propios sobre los indicadores del panel; la correlación (r) es descriptiva, sin ponderar por tamaño de comunidad ni causalidad. Los cambios porcentuales con bases pequeñas (lanzamientos, vivienda protegida) son muy volátiles.
+
+## Accesibilidad del alquiler en ciudades (añadido 2026-10-12)
+
+- **Renta municipal**: INE, Atlas de Distribución de Renta de los Hogares (ADRH), serie «Dato base. Renta neta media por hogar» de cada municipio (códigos ADRH en el CSV), 2015–2023. Valores obtenidos directamente de la API del INE.
+- **Esfuerzo** = precio mediano €/m² del municipio (SERPAVI) × m² × 12 ÷ renta neta media del hogar. En 2024 se usa la renta de 2023 (aún no publicada la de 2024), lo que sobrestima algo el esfuerzo de ese año. Bilbao solo tiene precio en 2024.
+- **Media de las ciudades**: ponderada por población (padrón 2025) sobre las ciudades con dato ese año.
+- **Diferencia con la versión por CCAA**: allí la renta es de la ECV (encuesta X+1 para ingresos X); aquí la del Atlas, referida al propio año. Las dos pestañas no son directamente comparables en nivel.
