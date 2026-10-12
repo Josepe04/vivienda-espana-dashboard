@@ -9,7 +9,8 @@
 *{box-sizing:border-box}
 body{margin:0;background:#0A0E13;color:#E8EEF4;font-family:'IBM Plex Sans',system-ui,sans-serif}
 button{font:inherit;cursor:pointer;border:0;color:inherit;padding:0}
-button:focus-visible,input:focus-visible{outline:2px solid #F3F7FA;outline-offset:2px}
+select{font:inherit;font-size:16px;font-weight:600;background:#0A0E13;color:#E8EEF4;border:1px solid #2A3541;border-radius:10px;padding:8px 12px;min-height:40px}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid #F3F7FA;outline-offset:2px}
 h1,h2{margin:0}
 .disp{font-family:'Bricolage Grotesque',system-ui,sans-serif}
 .wrap{max-width:1360px;margin:0 auto;padding:32px 24px 48px;display:flex;flex-direction:column;gap:20px}
@@ -45,7 +46,12 @@ h1,h2{margin:0}
 <div class="def" id="def"></div>
 <div id="viewsw" style="display:none;gap:8px;flex-wrap:wrap" role="group" aria-label="Ver en el mapa"></div>
 
-<section class="card" style="display:flex;flex-wrap:wrap;align-items:center;gap:20px;padding:16px 20px">
+<section id="rangesw" class="card" style="display:none;flex-wrap:wrap;align-items:center;gap:14px 20px;padding:16px 20px">
+<label class="muted" style="font-size:14px">Desde <select id="ya" style="margin-left:8px"></select></label>
+<label class="muted" style="font-size:14px">hasta <select id="yb" style="margin-left:8px"></select></label>
+<span id="rangeTxt" style="font-size:14px;color:#C5D0DB"></span>
+</section>
+<section id="yearbar" class="card" style="display:flex;flex-wrap:wrap;align-items:center;gap:20px;padding:16px 20px">
 <button id="play" style="width:48px;height:48px;border-radius:50%;background:var(--fam);color:#0A0E13;display:flex;align-items:center;justify-content:center;flex:none"></button>
 <div id="yearbig" class="disp" style="font-weight:800;font-size:46px;line-height:1;min-width:112px;font-variant-numeric:tabular-nums"></div>
 <div style="flex:1 1 320px;display:flex;flex-direction:column;gap:6px">
@@ -113,7 +119,7 @@ CFG.ciu={tab:'Precio del alquiler ciudades',sub:'€/m² al mes · 15 mayores ci
   src:'Ministerio de Vivienda y Agenda Urbana, SERPAVI (nivel municipal, viviendas colectivas) · población: INE, padrón 2025',cov:'2011–2024 · Bilbao solo 2024 (Bizkaia no aporta serie anterior)',warn:'Solo alquileres de vivienda habitual declarados en el IRPF. Las ciudades con pocos contratos pueden tener series más irregulares.'};
 CFG.ciuv=Object.assign({},CFG.ciu,{label:'Variación anual del precio del alquiler en las 15 mayores ciudades',unitName:'variación % anual',unit:'%',dec:1,grad:'linear-gradient(90deg,#5B8DEF,#26303C,#FDBA74)',lo:'−8 %',mid:'0 %',hi:'+12 %',d0:-8,d1:12,from:2012});
 const isRen=k=>k==='ren'||k==='ciu';
-const S = {ind:'alq',year:2025,sel:12,selC:0,playing:false,view:'precio'};
+const S = {ind:'alq',year:2025,sel:12,selC:0,playing:false,view:'precio',a:2019,b:2024};
 let timer=null;
 const $ = id => document.getElementById(id);
 const hex = h => [1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
@@ -150,7 +156,7 @@ function spark(arr){
   const w=160,h=44,v=arr.filter(x=>x!=null);if(!v.length)return '';
   const mn=Math.min(...v),mx=Math.max(...v);let d='',pen=false;
   arr.forEach((x,i)=>{if(x==null){pen=false;return}
-    d+=(pen?'L':'M')+(i/17*w).toFixed(1)+' '+(h-3-(x-mn)/((mx-mn)||1)*(h-6)).toFixed(1)+' ';pen=true});
+    d+=(pen?'L':'M')+(i/Math.max(1,arr.length-1)*w).toFixed(1)+' '+(h-3-(x-mn)/((mx-mn)||1)*(h-6)).toFixed(1)+' ';pen=true});
   return d;
 }
 function delta(ind,now,prev,year){
@@ -166,10 +172,83 @@ function togglePlay(){
   S.playing=true;render();
   timer=setInterval(()=>{if(S.year+1>2025){stop();render();return}S.year++;render()},900);
 }
+function lev(k,idx,y){
+  let a;
+  if(k==='ipv'){a=idx<0?D.ipvN:D.ipv[idx];const v=a[y-2008];return v==null?null:v}
+  a=k==='ciu'?(idx<0?D.cpN:D.cp[idx]):(idx<0?D.rentN:D.rent[idx]);
+  const v=a[y-2011];return v==null?null:v;
+}
+function renderAcum(x){
+  const {c,isC,sel,NM,TN,POS}=x,k=S.ind;
+  const lo=k==='ipv'?2008:2011,hi=k==='ipv'?2025:2024;
+  S.b=Math.min(hi,Math.max(S.b,lo+1));S.a=Math.max(lo,Math.min(S.a,S.b-1));
+  const A=S.a,B=S.b,n=B-A;
+  const yrs=[];for(let y=lo;y<=hi;y++)yrs.push(y);
+  $('ya').innerHTML=yrs.slice(0,-1).map(y=>`<option value="${y}"${y===A?' selected':''}>${y}</option>`).join('');
+  $('yb').innerHTML=yrs.slice(1).map(y=>`<option value="${y}"${y===B?' selected':''}>${y}</option>`).join('');
+  const hiCol={ren:'#C4B5FD',ciu:'#FDBA74',ipv:'#FBBF24'}[k];
+  const what=k==='ipv'?'precio de la vivienda':'precio del alquiler';
+  const lvf=v=>v==null?'—':(k==='ipv'?num(v,1)+' (índice)':num(v,2)+' €/m²');
+  const cum=(idx,y)=>{const a=lev(k,idx,A),b=lev(k,idx,y);return(a==null||b==null)?null:Math.round((b/a-1)*1000)/10};
+  const fp=v=>v==null?'—':sgn(v,1)+' %';
+  const vals=NM.map((_,i)=>cum(i,B));
+  const pres=vals.filter(v=>v!=null);
+  const m=Math.max(5,Math.ceil(Math.max(...pres.map(Math.abs))/5)*5);
+  const col=v=>v==null?'#161D26':(v<0?mix('#26303C','#5B8DEF',Math.min(1,-v/m)):mix('#26303C',hiCol,Math.min(1,v/m)));
+  $('rangeTxt').textContent='Cambio del '+what+' entre '+A+' y '+B+' ('+n+(n===1?' año':' años')+')';
+  $('mapTitle').innerHTML='Variación acumulada · '+A+' → '+B+'<span class="unitchip">% acumulado</span>';
+  $('nodata').style.display='none';
+  $('tiles').style.gridTemplateColumns='repeat('+(isC?5:6)+',minmax(0,1fr))';
+  $('tiles').innerHTML=NM.map((nm,i)=>{
+    const v=vals[i],bg=col(v),p=POS[i];
+    const ink=v==null?'#8FA1B3':(lum(bg)>.36?'#0A0E13':'#F3F7FA');
+    return `<button class="tile" data-sel="${i}" aria-pressed="${i===sel}" aria-label="${esc(nm)}: ${fp(v)}" style="grid-column:${p[0]+1} / span ${p[2]};grid-row:${p[1]+1};background:${bg};color:${ink};outline:${i===sel?'3px solid #F3F7FA':'3px solid transparent'}"><span style="font-size:12px;font-weight:600;line-height:1.2">${esc(TN[i])}</span><span class="disp" style="font-weight:700;font-size:21px;font-variant-numeric:tabular-nums">${fp(v)}</span></button>`}).join('');
+  $('legbar').style.background='linear-gradient(90deg,#5B8DEF,#26303C,'+hiCol+')';
+  $('legend').innerHTML=`<span>−${m} %</span><span>0 %</span><span>+${m} %</span>`;
+  const entries=vals.map((v,i)=>({v,i})).filter(e=>e.v!=null).sort((a,b)=>b.v-a.v);
+  const rank=entries.findIndex(e=>e.i===sel)+1;
+  const tae=(idx)=>{const a=lev(k,idx,A),b=lev(k,idx,B);return(a==null||b==null)?null:(Math.pow(b/a,1/n)-1)*100};
+  const series=idx=>{const o=[];for(let y=A;y<=B;y++)o.push(cum(idx,y));return o};
+  const natS=series(-1),selS=series(sel);
+  const mk=(label,idx,colr,sub)=>{
+    const a=lev(k,idx,A),b=lev(k,idx,B),t=tae(idx);
+    return {l:label,v:fp(cum(idx,B)),d:a==null||b==null?'Sin dato en el rango':lvf(a)+' ('+A+') → '+lvf(b)+' ('+B+')',sp:spark(series(idx)),col:colr,sub:sub+(t==null?'':' · '+sgn(t,1)+' % al año de media')};
+  };
+  const kp=[mk(isC?'Media 14 ciudades':(k==='ipv'?'Total nacional':'Total nacional'),-1,'#E8EEF4',k==='ipv'?'Índice nacional':(isC?'Media ponderada de 14 ciudades':'Media ponderada de medianas')),
+            mk(NM[sel],sel,c.fam,vals[sel]==null?'Sin dato en el rango':'N.º '+rank+' de '+entries.length+(isC?' ciudades':' territorios'))];
+  $('kpis').innerHTML=kp.map(q=>`<article class="card kpi" style="padding:18px"><span class="muted" style="font-size:13px">${esc(q.l)}</span><span class="big disp">${q.v}</span><span style="font-size:13px;color:#C5D0DB">${q.d}</span><svg viewBox="0 0 160 44" preserveAspectRatio="none" style="width:100%;height:44px;display:block"><path d="${q.sp}" fill="none" stroke="${q.col}" stroke-width="2" vector-effect="non-scaling-stroke"/></svg><span class="muted" style="font-size:12px">${q.sub}</span></article>`).join('');
+  $('rankTitle').textContent='Ranking · variación acumulada '+A+' → '+B;
+  const rng=2*m;
+  $('bars').innerHTML=entries.map(e=>{
+    const pos=(e.v+m)/rng,zero=.5;
+    return `<button class="bar" data-sel="${e.i}" aria-label="${esc(NM[e.i])}: ${fp(e.v)}" style="background:${e.i===sel?'#1E2833':'transparent'}"><span style="flex:0 0 118px;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(NM[e.i])}</span><span class="track"><span class="fill" style="left:${(Math.min(zero,pos)*100).toFixed(1)}%;width:${(Math.abs(pos-zero)*100).toFixed(1)}%;background:${col(e.v)}"></span></span><span style="flex:0 0 74px;text-align:right;font-size:13px;font-variant-numeric:tabular-nums">${fp(e.v)}</span></button>`}).join('');
+  // chart A..B
+  const W=860,H=300,pl=48,pr=16,pt=28,pb=30,xOf=y=>pl+(y-A)/n*(W-pl-pr);
+  const all=natS.concat(selS).filter(v=>v!=null).concat([0]);
+  let mn=Math.min(...all),mx=Math.max(...all);mx=mx+(mx-mn)*.08;mn=mn<0?mn-(mx-mn)*.04:mn;
+  const yOf=v=>pt+(1-(v-mn)/((mx-mn)||1))*(H-pt-pb);
+  const pathOf=a=>{let d='',pen=false;a.forEach((v,i)=>{if(v==null){pen=false;return}d+=(pen?'L':'M')+xOf(A+i).toFixed(1)+' '+yOf(v).toFixed(1)+' ';pen=true});return d};
+  let g='';
+  for(let q=0;q<5;q++){const v=mn+(mx-mn)*q/4;g+=`<line x1="48" x2="844" y1="${yOf(v).toFixed(1)}" y2="${yOf(v).toFixed(1)}" stroke="#1F2933"/><text x="40" y="${(yOf(v)+4).toFixed(1)}" text-anchor="end" font-size="11" fill="#8FA1B3">${num(v,0)} %</text>`}
+  g+=`<line x1="48" x2="844" y1="${yOf(0).toFixed(1)}" y2="${yOf(0).toFixed(1)}" stroke="#8FA1B3" stroke-opacity=".55"/>`;
+  const step=n>12?2:1;
+  for(let y=A;y<=B;y+=step)g+=`<text x="${xOf(y).toFixed(1)}" y="292" text-anchor="middle" font-size="11" fill="#8FA1B3">${y}</text>`;
+  [[2020,'Covid-19'],[2023,'Ley de vivienda']].forEach(([y,l])=>{if(y>A&&y<=B)g+=`<line x1="${xOf(y)}" x2="${xOf(y)}" y1="28" y2="270" stroke="#8FA1B3" stroke-dasharray="3 4"/><text x="${xOf(y)}" y="20" text-anchor="middle" font-size="11" fill="#C5D0DB">${l}</text>`});
+  g+=`<path d="${pathOf(natS)}" fill="none" stroke="#8FA1B3" stroke-width="2" stroke-dasharray="5 4"/><path d="${pathOf(selS)}" fill="none" stroke="${c.fam}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>`;
+  const nl=natS[n],sl=selS[n];
+  if(nl!=null)g+=`<circle cx="${xOf(B)}" cy="${yOf(nl)}" r="5" fill="#8FA1B3" stroke="#121821" stroke-width="2"/>`;
+  if(sl!=null)g+=`<circle cx="${xOf(B)}" cy="${yOf(sl)}" r="5" fill="${c.fam}" stroke="#121821" stroke-width="2"/>`;
+  $('chart').innerHTML=g;$('chart').setAttribute('aria-label','Variación acumulada '+A+'–'+B+' de '+NM[sel]);
+  const natName=isC?'Media 14 ciudades (ponderada)':(k==='ren'?'Media ponderada nacional':'Total nacional');
+  $('chartTitle').textContent='Acumulado desde '+A+' · '+NM[sel];
+  $('chartLeg').innerHTML=`<span style="display:flex;align-items:center;gap:8px"><span style="width:22px;border-top:2px dashed #8FA1B3"></span>${natName}</span><span style="display:flex;align-items:center;gap:8px"><span style="width:22px;height:3px;border-radius:2px;background:${c.fam}"></span>${esc(NM[sel])}</span>`;
+  $('chartNote').textContent='Cada punto es el cambio porcentual respecto a '+A+' ('+what+'). Se calcula como valor del año / valor de '+A+' − 1; no es la suma de las variaciones anuales.'+(isC?' Bilbao solo tiene dato en 2024.':'')+(k==='ren'&&!isC?' Navarra y País Vasco tienen serie corta.':'');
+}
 function render(){
   const isC=S.ind==='ciu';const sel=isC?S.selC:S.sel;
   const NM=isC?D.cnames:D.names,TN=isC?D.ctn:D.tn,POS=isC?D.cnames.map((_,i)=>[i%5,Math.floor(i/5),1]):D.pos;
   const RM=isC?D.cr:D.rentM,RMN=isC?D.crN:D.rentMN;
+  const isAcum=S.view==='acum'&&(isRen(S.ind)||S.ind==='ipv');
   const ek=(isRen(S.ind)&&S.view==='var')?S.ind+'v':S.ind;const c=CFG[ek],ind=ek,yi=S.year-2008;
   const app=$('app');app.style.setProperty('--fam',c.fam);
   const fv=v=>v==null?'—':num(v,c.dec)+(c.unit?' '+c.unit:'');
@@ -180,8 +259,13 @@ function render(){
   $('tabs').innerHTML=Object.keys(CFG).filter(k=>k!=='renv'&&k!=='ciuv').map(k=>{const t=CFG[k],on=k===S.ind;
     return `<button class="tab" data-ind="${k}" aria-pressed="${on}" title="${esc(t.def.replace(/<[^>]+>/g,''))}" style="background:${on?t.fam:'#121821'};color:${on?'#0A0E13':'#E8EEF4'};border-color:${on?t.fam:'#2A3541'}"><span style="font-weight:600;font-size:15px">${t.tab}</span><small>${t.sub}</small></button>`}).join('');
   $('def').innerHTML=c.def;
-  $('viewsw').style.display=isRen(S.ind)?'flex':'none';
-  $('viewsw').innerHTML=[['precio','Precio (€/m² al mes)'],['var','Variación anual (%)']].map(([k,l])=>`<button data-view="${k}" aria-pressed="${S.view===k}" style="padding:8px 14px;border-radius:999px;font-size:13px;font-weight:600;background:${S.view===k?c.fam:'#121821'};color:${S.view===k?'#0A0E13':'#E8EEF4'};border:1px solid ${S.view===k?c.fam:'#2A3541'}">${l}</button>`).join('');
+  $('viewsw').style.display=(isRen(S.ind)||S.ind==='ipv')?'flex':'none';
+  const vopts=S.ind==='ipv'?[['precio','Variación anual (%)'],['acum','Acumulado en un rango']]:[['precio','Precio (€/m² al mes)'],['var','Variación anual (%)'],['acum','Acumulado en un rango']];
+  const vact=k=>(S.ind==='ipv'&&k==='precio')?S.view!=='acum':S.view===k;
+  $('viewsw').innerHTML=vopts.map(([k,l])=>`<button data-view="${k}" aria-pressed="${vact(k)}" style="padding:8px 14px;border-radius:999px;font-size:13px;font-weight:600;background:${vact(k)?c.fam:'#121821'};color:${vact(k)?'#0A0E13':'#E8EEF4'};border:1px solid ${vact(k)?c.fam:'#2A3541'}">${l}</button>`).join('');
+  $('yearbar').style.display=isAcum?'none':'flex';
+  $('rangesw').style.display=isAcum?'flex':'none';
+  if(isAcum){stop();$('def').innerHTML=c.def+'<br><b>Acumulado:</b> elige un año de inicio y otro de fin y verás cuánto ha cambiado el precio entre ambos, en %. Es el cambio total del periodo, no la suma de las variaciones anuales.';renderAcum({c,isC,sel,NM,TN,POS});$('foot').innerHTML=`<span><b style="color:#C5D0DB;font-weight:600">Fuente:</b> ${c.src}</span><span><b style="color:#C5D0DB;font-weight:600">Cobertura:</b> ${c.cov}</span><span><b style="color:#C5D0DB;font-weight:600">Aviso:</b> ${c.warn}</span>`;return}
   $('play').innerHTML=S.playing?'<svg width="18" height="18" viewBox="0 0 18 18"><rect x="3" y="2" width="4" height="14" fill="currentColor"/><rect x="11" y="2" width="4" height="14" fill="currentColor"/></svg>':'<svg width="18" height="18" viewBox="0 0 18 18"><path d="M4 2 L16 9 L4 16 Z" fill="currentColor"/></svg>';
   $('play').setAttribute('aria-label',S.playing?'Pausar animación':'Reproducir evolución');
   $('yearbig').textContent=S.year;$('range').value=S.year;
@@ -243,6 +327,8 @@ document.addEventListener('click',e=>{
   const s=e.target.closest('[data-sel]');if(s){if(S.ind==='ciu')S.selC=+s.dataset.sel;else S.sel=+s.dataset.sel;render();return}
   if(e.target.closest('#play'))togglePlay();
 });
+$('ya').addEventListener('change',e=>{S.a=+e.target.value;if(S.b<=S.a)S.b=S.a+1;render()});
+$('yb').addEventListener('change',e=>{S.b=+e.target.value;if(S.a>=S.b)S.a=S.b-1;render()});
 $('range').addEventListener('input',e=>{S.year=+e.target.value;render()});
 render();
 </script>

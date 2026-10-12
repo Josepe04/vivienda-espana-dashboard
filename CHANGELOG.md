@@ -2,6 +2,11 @@
 
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y versionado semántico.
 
+## [0.2.0] - 2026-10-12
+
+### Añadido
+- Vista **Acumulado en un rango** en las pestañas Precio del alquiler CCAA, Precio del alquiler ciudades y Precio de la vivienda: eliges año de inicio y de fin y ves el cambio porcentual total entre ambos en el mapa, el ranking, las fichas y el gráfico (acumulado desde el año de inicio). La ficha incluye también el valor inicial y final y la tasa media anual.
+
 ## [0.1.0] - 2026-10-12
 
 ### Añadido

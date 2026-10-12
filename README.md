@@ -14,6 +14,8 @@ Panel interactivo, en un único archivo HTML y sin dependencias, que combina dat
 | Precio del alquiler CCAA | Mediana €/m² al mes y su variación anual | Ministerio de Vivienda, SERPAVI | 2011–2024 |
 | Precio del alquiler ciudades | Ídem, 15 mayores municipios | Ministerio de Vivienda, SERPAVI + INE (padrón 2025) | 2011–2024 |
 
+Las pestañas de precio del alquiler y de precio de la vivienda tienen además una vista **Acumulado en un rango**: eliges dos años y ves cuánto ha subido o bajado el precio entre ambos (cambio total del periodo, no suma de variaciones anuales).
+
 Cada pestaña tiene mapa de casillas por territorio, selector de año con reproducción, ficha del territorio, ranking y gráfico de evolución frente a la referencia nacional.
 
 ## Uso en local
