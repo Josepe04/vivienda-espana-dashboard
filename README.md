@@ -13,14 +13,18 @@ Panel interactivo, en un único archivo HTML y sin dependencias, que combina dat
 | Lanzamientos | Lanzamientos practicados (total) por TSJ | CGPJ, Efectos de la crisis en los órganos judiciales | 2013–2025 |
 | Precio del alquiler CCAA | Mediana €/m² al mes y su variación anual | Ministerio de Vivienda, SERPAVI | 2011–2024 |
 | Precio del alquiler ciudades | Ídem, 15 mayores municipios | Ministerio de Vivienda, SERPAVI + INE (padrón 2025) | 2011–2024 |
-| Vivienda pública | Viviendas protegidas con calificación definitiva (promotor público o total), su variación anual y acumulada | Ministerio de Transportes, Boletín Online (tablas 1.6 y 1.6.2.2) | Público 2014–2025 · total 2008–2025 |
+| Vivienda terminada | Viviendas libres terminadas, protegidas (promotor público o total), libre + protegida y % protegida; variación anual y acumulada | Ministerio de Transportes, Boletín Online (tablas 1.6, 1.6.2.2 y 3.2) | 2008–2025 (promotor público desde 2014) |
 | Compraventas e hipotecas | Compraventas de viviendas (total, nueva, segunda mano), hipotecas sobre viviendas e importe medio | INE, ETDP (tabla 6155) y Estadística de Hipotecas (tabla 3223) | 2008–2025 |
+| Viviendas turísticas | Número y % sobre viviendas censadas por comunidad (estadística experimental) | INE, Viviendas turísticas en España (tabla 46141) | 2020–2025 |
+| Hipotecas: tipos y plazo | Tipo de interés medio (fijo/variable), % a tipo fijo, plazo medio, importe medio y cuota estimada (solo nacional) | INE, Estadística de Hipotecas | 2008–2025 |
 | Accesibilidad del alquiler | Esfuerzo: % de la renta neta media del hogar que supondría alquilar un piso de 40–100 m² | MIVAU SERPAVI + INE, ECV (tabla 49146) | 2011–2024 |
 | Accesibilidad alquiler ciudades | Esfuerzo de alquiler en las 15 mayores ciudades (renta municipal) | MIVAU SERPAVI + INE, Atlas de Distribución de Renta de los Hogares | 2015–2024 (renta de 2024 = la de 2023) |
 | Comparación | Gráfico de dispersión entre dos indicadores cualesquiera (valor en un año o cambio acumulado), con recta y correlación | Todas las anteriores | Según indicador |
-| Ranking acumulado | Tabla ordenable con el cambio acumulado de 10 indicadores por comunidad entre dos años | Todas las anteriores | Según indicador |
+| Ranking acumulado | Tabla ordenable con el cambio acumulado de 12 indicadores por comunidad entre dos años | Todas las anteriores | Según indicador |
 
 Las pestañas de precio del alquiler, precio de la vivienda y vivienda pública tienen además una vista **Acumulado en un rango**: eliges dos años y ves cuánto ha subido o bajado el precio entre ambos (cambio total del periodo, no suma de variaciones anuales).
+
+Las pestañas de lanzamientos, vivienda terminada, compraventas e hipotecas y viviendas turísticas tienen un selector **Cifras: absolutas / por 1.000 habitantes** (población a mitad de año, INE ECP), también aplicado en Comparación y Ranking.
 
 Las pestañas por comunidad autónoma tienen un mapa geográfico real (con Canarias en recuadro y Ceuta y Melilla como círculos); la de ciudades usa un mapa de casillas. Todas incluyen selector de año con reproducción, ficha del territorio, ranking y gráfico de evolución frente a la referencia nacional.
 
@@ -50,6 +54,9 @@ Los CSV usan `;` como separador. El panel actual incrusta los datos de las cinco
 - La referencia nacional del alquiler y la de las ciudades (media de medianas ponderada por número de contratos) es un **cálculo propio**, no un dato oficial.
 - **Lanzamientos:** la serie del CGPJ empieza en 2013; Ceuta y Melilla están incluidas en Andalucía. Pendiente confirmar si la cifra se limita a vivienda habitual.
 - **Vivienda pública:** son calificaciones definitivas de vivienda protegida (aproximación a vivienda protegida terminada), no el parque público existente. La serie de promotor público empieza en 2014. Con cifras pequeñas, las variaciones porcentuales son muy volátiles y un año con base 0 no tiene % calculable.
+- **Viviendas turísticas:** estadística experimental del INE; se usa la última medición de cada año (julio 2020–2023, octubre 2024–2025), por lo que los años no son estrictamente homogéneos. La caída de 2025 coincide con una depuración de registros.
+- **Vivienda libre terminada** es una estimación (certificados de fin de obra) y la protegida son calificaciones definitivas: la suma y el % protegida son aproximados.
+- **Tipo de interés y plazo** solo existen a nivel nacional; la cuota mensual estimada es un cálculo propio ilustrativo.
 - **IPV** base 2025 = 100; la variación anual se calcula sobre las medias anuales del índice y se muestra redondeada.
 - **ECV:** muestras pequeñas en Ceuta, Melilla y comunidades pequeñas; las series son irregulares.
 - Detalle completo en [`docs/INFORME_VALIDACION_DATOS.md`](docs/INFORME_VALIDACION_DATOS.md).
@@ -62,7 +69,7 @@ Los datos originales pertenecen a sus organismos: Instituto Nacional de Estadís
 
 ## Próximos pasos
 
-- Pestaña de viviendas libres terminadas.
+- Visados de obra nueva (no incluidos aún).
 - Lectura de los datos desde los CSV en lugar de incrustarlos.
 
 ## Atribución del mapa

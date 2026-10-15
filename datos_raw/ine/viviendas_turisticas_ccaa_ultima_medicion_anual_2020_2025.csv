@@ -1,0 +1,42 @@
+territorio,medida,2020,2021,2022,2023,2024,2025
+(fecha de la medición),,2020-07-31,2021-07-31,2022-07-31,2023-07-31,2024-10-31,2025-10-31
+Total nacional,viviendas_turisticas,321496,306974,311518,340424,376463,329764
+Total nacional,pct_sobre_viviendas_censadas_2011,1.28,1.22,1.24,1.29,1.41,1.24
+Andalucía,viviendas_turisticas,67392,63179,70123,79065,90363,91757
+Andalucía,pct_sobre_viviendas_censadas_2011,1.55,1.45,1.61,1.69,1.93,1.96
+Aragón,viviendas_turisticas,3767,3609,3744,4041,4864,3785
+Aragón,pct_sobre_viviendas_censadas_2011,0.48,0.46,0.48,0.5,0.58,0.45
+Asturias,viviendas_turisticas,4891,5176,6110,7036,7649,6043
+Asturias,pct_sobre_viviendas_censadas_2011,0.8,0.84,1,1.04,1.13,0.9
+Illes Balears,viviendas_turisticas,29237,29211,27038,26507,24190,19398
+Illes Balears,pct_sobre_viviendas_censadas_2011,4.98,4.98,4.61,4.06,3.71,2.97
+Canarias,viviendas_turisticas,37791,39327,40935,44376,51286,49676
+Canarias,pct_sobre_viviendas_censadas_2011,3.63,3.78,3.93,4.08,4.71,4.56
+Cantabria,viviendas_turisticas,4886,5362,6281,6920,7496,6229
+Cantabria,pct_sobre_viviendas_censadas_2011,1.36,1.5,1.75,1.8,1.95,1.62
+Castilla y León,viviendas_turisticas,5794,5735,6171,6612,8244,7035
+Castilla y León,pct_sobre_viviendas_censadas_2011,0.34,0.33,0.36,0.38,0.45,0.38
+Castilla-La Mancha,viviendas_turisticas,3327,3344,3655,4120,5242,4551
+Castilla-La Mancha,pct_sobre_viviendas_censadas_2011,0.27,0.27,0.29,0.31,0.39,0.34
+Cataluña,viviendas_turisticas,63199,56493,49265,52026,52870,46915
+Cataluña,pct_sobre_viviendas_censadas_2011,1.64,1.46,1.28,1.33,1.35,1.2
+Comunitat Valenciana,viviendas_turisticas,54638,51047,51691,58337,64745,48441
+Comunitat Valenciana,pct_sobre_viviendas_censadas_2011,1.74,1.62,1.64,1.78,1.97,1.47
+Extremadura,viviendas_turisticas,1366,1289,1478,1592,2033,2114
+Extremadura,pct_sobre_viviendas_censadas_2011,0.21,0.2,0.23,0.23,0.29,0.3
+Galicia,viviendas_turisticas,12548,13502,15966,18080,19676,15236
+Galicia,pct_sobre_viviendas_censadas_2011,0.78,0.84,0.99,1.03,1.12,0.87
+Comunidad de Madrid,viviendas_turisticas,19597,17400,15763,16970,20760,15309
+Comunidad de Madrid,pct_sobre_viviendas_censadas_2011,0.68,0.6,0.54,0.57,0.7,0.52
+Región de Murcia,viviendas_turisticas,6146,5741,6133,6952,8406,5621
+Región de Murcia,pct_sobre_viviendas_censadas_2011,0.79,0.74,0.79,0.82,1,0.67
+Navarra,viviendas_turisticas,1071,993,1225,1340,1679,1463
+Navarra,pct_sobre_viviendas_censadas_2011,0.35,0.32,0.4,0.41,0.51,0.44
+País Vasco,viviendas_turisticas,4598,4354,4693,5121,5473,4783
+País Vasco,pct_sobre_viviendas_censadas_2011,0.45,0.43,0.46,0.48,0.51,0.44
+La Rioja,viviendas_turisticas,1139,1110,1155,1228,1380,1332
+La Rioja,pct_sobre_viviendas_censadas_2011,0.57,0.56,0.58,0.6,0.65,0.63
+Ceuta,viviendas_turisticas,66,56,51,47,57,46
+Ceuta,pct_sobre_viviendas_censadas_2011,0.25,0.21,0.19,0.17,0.2,0.16
+Melilla,viviendas_turisticas,43,46,41,54,50,30
+Melilla,pct_sobre_viviendas_censadas_2011,0.16,0.18,0.16,0.18,0.17,0.1

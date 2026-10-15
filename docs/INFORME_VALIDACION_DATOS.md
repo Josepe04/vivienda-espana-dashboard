@@ -72,3 +72,12 @@ INE: API Tempus (servicios.ine.es). CGPJ: Excel "Series - Efecto de la crisis ..
 - **Esfuerzo** = precio mediano €/m² del municipio (SERPAVI) × m² × 12 ÷ renta neta media del hogar. En 2024 se usa la renta de 2023 (aún no publicada la de 2024), lo que sobrestima algo el esfuerzo de ese año. Bilbao solo tiene precio en 2024.
 - **Media de las ciudades**: ponderada por población (padrón 2025) sobre las ciudades con dato ese año.
 - **Diferencia con la versión por CCAA**: allí la renta es de la ECV (encuesta X+1 para ingresos X); aquí la del Atlas, referida al propio año. Las dos pestañas no son directamente comparables en nivel.
+
+## Cifras por habitante, vivienda terminada, viviendas turísticas y tipos de hipoteca (añadido 2026-10-15)
+
+- **Por 1.000 habitantes:** población a 30 de junio (INE, Estadística Continua de Población). Para lanzamientos, Andalucía suma Ceuta y Melilla porque el CGPJ las incluye en su TSJ.
+- **Viviendas libres terminadas** (Transportes, tabla 3.2): estimación a partir de certificados de fin de obra. Se suman a las protegidas (calificaciones definitivas) solo de forma aproximada; no hay serie de visados en el panel.
+- **Viviendas turísticas** (INE, tabla 46141, experimental): última medición de cada año; fechas 31-jul (2020–2023) y 31-oct (2024–2025). Total nacional 2025: 329.764; la caída de 2025 coincide con depuración de registros. El % usa el total de viviendas del censo 2011 como denominador.
+- **Tipo de interés y plazo** (INE, hipotecas sobre viviendas): solo total nacional. Cuota estimada: sistema francés con el importe medio, tipo medio total y plazo medio del año; sin comisiones ni seguros; cálculo propio.
+- Comprobaciones: 534 combinaciones de estado probadas sin NaN/undefined; Madrid 2025 = 15.309 viviendas turísticas ÷ 7.147.708 hab. = 2,1 por 1.000.
+

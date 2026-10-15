@@ -2,6 +2,16 @@
 
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y versionado semántico.
 
+## [0.8.0] - 2026-10-15
+
+### Añadido
+- Selector **Cifras: absolutas / por 1.000 habitantes** en lanzamientos, vivienda terminada, compraventas e hipotecas y viviendas turísticas, también en Comparación y Ranking. Población a mitad de año (INE, ECP); Andalucía incluye Ceuta y Melilla en lanzamientos.
+- Pestaña **Viviendas turísticas** (INE, tabla 46141, experimental, 2020–2025): número, % sobre viviendas censadas en 2011, variación anual y acumulado.
+- Pestaña **Hipotecas: tipos y plazo** (nacional): tipo medio total/fijo/variable, % a tipo fijo, plazo medio, importe medio y cuota mensual estimada.
+- Vivienda terminada: nuevas medidas libre, libre + protegida y % protegida (Boletín Online, tabla 3.2). La pestaña pasa a llamarse *Vivienda terminada*.
+- Ranking y Comparación incorporan vivienda libre terminada y viviendas turísticas.
+- Nuevos CSV en `datos_raw/ine/`: población, viviendas turísticas, tipo de interés y plazo.
+
 ## [0.7.0] - 2026-10-12
 
 ### Añadido
